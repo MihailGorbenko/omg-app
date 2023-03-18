@@ -3,9 +3,61 @@
   "version": "1.0.0",
   "description": "sotial network app",
   "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
   "author": "Miha Go",
-  "license": "ISC"
+  "license": "ISC",
+  "scripts": {
+    "test": "cross-env NODE_ENV=test mocha -r ts-node/register 'tests/**/*.test.ts' --timeout 20000 --exit",
+    "start": "run-s compile run",
+    "dev": "nodemon",
+    "compile": "tsc",
+    "run": "cross-env NODE_ENV=production node ./dist/run.js",
+    "docker:build": "docker build -t mihago/omg-app .",
+    "build": "run-s compile docker:build",
+    "build:test": "run-s test build",
+    "docker:push": "docker push mihago/omg-app:latest",
+    "docker:publish": "run-s build:test docker:push"
+  },
+
+
+  "devDependencies": {
+    "@types/bcrypt": "^5.0.0",
+    "@types/body-parser": "^1.19.2",
+    "@types/chai": "^4.3.4",
+    "@types/chai-http": "^4.2.0",
+    "@types/config": "^3.3.0",
+    "@types/cookie-parser": "^1.4.3",
+    "@types/cors": "^2.8.13",
+    "@types/express": "^4.17.17",
+    "@types/express-validator": "^3.0.0",
+    "@types/formidable": "^2.0.5",
+    "@types/helmet": "^4.0.0",
+    "@types/jsonwebtoken": "^9.0.1",
+    "@types/mocha": "^10.0.1",
+    "@types/mongoose": "^5.11.97",
+    "@types/node": "^18.15.3",
+    "@types/nodemon": "^1.19.2",
+    "@types/typescript": "^2.0.0",
+    "chai": "^4.3.7",
+    "chai-http": "^4.3.0",
+    "mocha": "^10.2.0",
+    "nodemon": "^2.0.21",
+    "ts-node": "^10.9.1",
+    "typescript": "^5.0.2"
+  },
+  "dependencies": {
+    "bcrypt": "^5.1.0",
+    "body-parser": "^1.20.2",
+    "config": "^3.3.9",
+    "cookie-parser": "^1.4.6",
+    "cors": "^2.8.5",
+    "express": "^4.18.2",
+    "express-validator": "^6.15.0",
+    "formidable": "^2.1.1",
+    "helmet": "^6.0.1",
+    "json-parser": "^3.1.2",
+    "jsonwebtoken": "^9.0.0",
+    "mongoose": "^7.0.2",
+    "npm-run-all": "^4.1.5",
+    "serve-favicon": "^2.5.0"
+  }
 }

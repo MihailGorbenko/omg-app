@@ -1,0 +1,10 @@
+node_modules
+.vscode
+src
+tests
+Dockerfile
+.gitignore
+.dockerignore
+README.md
+.git
+frontend
