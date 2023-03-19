@@ -1,5 +1,0 @@
-{
-    "mongo_uri": "mongodb+srv://mihago:mihana1234@omg-app.jiorgpq.mongodb.net/?retryWrites=true&w=majority",
-    "http_port": 5000,
-    "jwt_secret": "f2a95c23-e1f2-4b20-b03a-28c63062d674"
-}
