@@ -17,8 +17,6 @@
     "docker:push": "docker push mihago/omg-app:latest",
     "docker:publish": "run-s build:test docker:push"
   },
-
-
   "devDependencies": {
     "@types/bcrypt": "^5.0.0",
     "@types/body-parser": "^1.19.2",
