@@ -4,20 +4,28 @@ import {
   useRefreshTokenMutation,
   useRegisterMutation,
   useResetPasswordMutation,
-  useSetPasswordMutation
+  useSetPasswordMutation,
 } from "../features/authentication/authApi";
 import { setAuthData } from "../features/authentication/authSlice";
-import { useAddUserMutation } from "../features/authentication/usersApi";
+import {
+  useAddUserMutation,
+  useLazyGetUserQuery,
+} from "../features/authentication/usersApi";
 import { useAppDispatch } from "../store/store";
-import { AuthErrorResponse, CheckEmailResponse, LoginResponse, SetPasswordResponse } from "../types/authSliceTypes";
+import {
+  AuthErrorResponse,
+  CheckEmailResponse,
+  LoginResponse,
+  SetPasswordResponse,
+} from "../types/authSliceTypes";
 
 export const IndexPage: React.FC = () => {
-  const [login, { isLoading, isError, isSuccess, error }] = useLoginMutation();
+  const [login, { isLoading, isError, isSuccess, error }] =
+    useAddUserMutation();
   const [
-    add,
+    get,
     { isLoading: rfrLoad, isError: rfrError, isSuccess: rfrSuccess },
-  ] =  useAddUserMutation();
-
+  ] = useLazyGetUserQuery();
 
   const dispatch = useAppDispatch();
   return (
@@ -32,8 +40,13 @@ export const IndexPage: React.FC = () => {
       <button
         onClick={async () => {
           login({
-            email: "gomihagle@gmail.com",
-            password: 'mihana1234'
+            user: {
+              _id: "a3f95db6bd46cb41b4ba87ss",
+              name: "miha",
+              lastName: " ",
+              email: "gomihagle@gmail.com",
+              avatar_url: "https://omgapp.pp.ua/api/storage/default.png",
+            },
           })
             .unwrap()
             .then((token) => console.log(token))
@@ -44,15 +57,9 @@ export const IndexPage: React.FC = () => {
       </button>
       <button
         onClick={() => {
-          add({user:{
-            _id: '63fe67185980ea11856ab88a',
-            name: 'miha',
-            lastname:' ',
-            email: 'gomihagle@gmail.com',
-            avatar_url: 'https://omgapp.pp.ua/api/storage/default.png'
-        }})
+          get()
             .unwrap()
-            .then((resp) => console.log(resp ))
+            .then((resp) => console.log(resp))
             .catch((err: AuthErrorResponse) => {
               console.log(err.predicate);
             });
