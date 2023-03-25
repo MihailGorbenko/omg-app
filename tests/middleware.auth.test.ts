@@ -29,9 +29,7 @@ describe('Testing Auth middleware: POST /test', () => {
 
             chai.request(app)
                 .post('/test')
-                .send({
-                    token: accessToken
-                })
+                .set("Authorization",`Bearer ${accessToken}`)
                 .end((err, response) => {
                     res = response
                 })
@@ -53,9 +51,7 @@ describe('Testing Auth middleware: POST /test', () => {
         before(async () => {
             chai.request(app)
                 .post('/test')
-                .send({
-                    token: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzZmU2NzE4NTk4MGVhMTE4NTZhYjg4YSIsImlhdCI6MTY3OTI0MDA5MSwiZXhwIjoxNjc5MjQwNjkxfQ.ycs68kmY_jp2IhUZ_1OEmBt4-z_8q31gHPVfYuxeKOs"
-                })
+                .set('Authorization', `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzZmU2NzE4NTk4MGVhMTE4NTZhYjg4YSIsImlhdCI6MTY3OTI0MDA5MSwiZXhwIjoxNjc5MjQwNjkxfQ.ycs68kmY_jp2IhUZ_1OEmBt4-z_8q31gHPVfYuxeKOs`)
                 .end((err, response) => {
                     res = response
                 })
