@@ -7,7 +7,10 @@ import config from 'config'
 
 export default function jwtAuth() {
     return function (req: Request, res: Response, next: NextFunction) {
-        const { token } = req.body
+
+        if(req.method === 'OPTIONS') return next()
+
+        const token  = req.headers.authorization?.split(' ')[1] //Bearer TOKEN
         if (!token) {
             return res.status(ResponceStatus.BadRequest).json({
                 message: 'Access token required'
