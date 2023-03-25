@@ -1,4 +1,4 @@
-import mongoose from "mongoose";
+import mongoose, { Types } from "mongoose";
 
 export type UserRecord = (mongoose.Document<unknown, {}, {
     name: string;

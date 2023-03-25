@@ -7,15 +7,16 @@ import {
   useSetPasswordMutation
 } from "../features/authentication/authApi";
 import { setAuthData } from "../features/authentication/authSlice";
+import { useAddUserMutation } from "../features/authentication/usersApi";
 import { useAppDispatch } from "../store/store";
 import { AuthErrorResponse, CheckEmailResponse, LoginResponse, SetPasswordResponse } from "../types/authSliceTypes";
 
 export const IndexPage: React.FC = () => {
-  const [login, { isLoading, isError, isSuccess, error }] = useResetPasswordMutation();
+  const [login, { isLoading, isError, isSuccess, error }] = useLoginMutation();
   const [
-    reset,
+    add,
     { isLoading: rfrLoad, isError: rfrError, isSuccess: rfrSuccess },
-  ] =  useSetPasswordMutation();
+  ] =  useAddUserMutation();
 
 
   const dispatch = useAppDispatch();
@@ -31,7 +32,8 @@ export const IndexPage: React.FC = () => {
       <button
         onClick={async () => {
           login({
-            email: "gomihagle@gmail.com"
+            email: "gomihagle@gmail.com",
+            password: 'mihana1234'
           })
             .unwrap()
             .then((token) => console.log(token))
@@ -42,12 +44,15 @@ export const IndexPage: React.FC = () => {
       </button>
       <button
         onClick={() => {
-          reset({
-            password:'mihana1234',
-            token: '981f3b79-0f7a-41ab-9051-f3ec76ee753d'
-          })
+          add({user:{
+            _id: '63fe67185980ea11856ab88a',
+            name: 'miha',
+            lastname:' ',
+            email: 'gomihagle@gmail.com',
+            avatar_url: 'https://omgapp.pp.ua/api/storage/default.png'
+        }})
             .unwrap()
-            .then((resp) => console.log((resp as SetPasswordResponse).status))
+            .then((resp) => console.log(resp ))
             .catch((err: AuthErrorResponse) => {
               console.log(err.predicate);
             });

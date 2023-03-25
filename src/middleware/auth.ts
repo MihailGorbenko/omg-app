@@ -16,6 +16,7 @@ export default function jwtAuth() {
                 message: 'Access token required'
             })
         }
+        
         try {
             const decoded = JWT.verify(token, config.get('jwt_secret')) as { id: String }
 

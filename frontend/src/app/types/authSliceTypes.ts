@@ -15,7 +15,7 @@ export type AuthData = {
 export type User = {
     _id: String,
     name: String,
-    lastname: String | null,
+    lastName: String,
     email:String,
     avatar_url: String
 }

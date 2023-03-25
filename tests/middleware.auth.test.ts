@@ -22,9 +22,9 @@ describe('Testing Auth middleware: POST /test', () => {
 
     describe('When passed valid token', async () => {
         let res: ChaiHttp.Response
-        before(async () => {
+        before( (done) => {
             const accessToken = JWT.sign({
-                id: "someUserId"
+                id: "63fe67185980ea11856ab88a"
             }, config.get('jwt_secret'), { expiresIn: 600 })
 
             chai.request(app)
@@ -32,6 +32,7 @@ describe('Testing Auth middleware: POST /test', () => {
                 .set("Authorization",`Bearer ${accessToken}`)
                 .end((err, response) => {
                     res = response
+                    done()
                 })
         })
         it('should respond with status code 200', (done) => {
@@ -41,19 +42,20 @@ describe('Testing Auth middleware: POST /test', () => {
         it('should respond with json with field {userId}', (done) => {
             expect(res).to.be.json
             expect(res.body).to.have.all.keys(['userId'])
-            expect(res.body.userId).to.match(/someUserId/)
+            expect(res.body.userId).to.match(/63fe67185980ea11856ab88a/)
             done()
         })
     })
 
     describe('When passed expired token', async () => {
         let res: ChaiHttp.Response
-        before(async () => {
+        before( (done) => {
             chai.request(app)
                 .post('/test')
                 .set('Authorization', `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzZmU2NzE4NTk4MGVhMTE4NTZhYjg4YSIsImlhdCI6MTY3OTI0MDA5MSwiZXhwIjoxNjc5MjQwNjkxfQ.ycs68kmY_jp2IhUZ_1OEmBt4-z_8q31gHPVfYuxeKOs`)
                 .end((err, response) => {
                     res = response
+                    done()
                 })
         })
         it('should respond with status code 401', (done) => {
@@ -71,11 +73,12 @@ describe('Testing Auth middleware: POST /test', () => {
 
     describe('When token missing', async () => {
         let res: ChaiHttp.Response
-        before(async () => {
+        before( (done) => {
             chai.request(app)
                 .post('/test')
                 .end((err, response) => {
                     res = response
+                    done()
                 })
         })
         it('should respond with status code 400', (done) => {

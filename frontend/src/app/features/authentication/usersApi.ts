@@ -4,7 +4,7 @@ import { User } from "../../types/authSliceTypes";
 
 
 
-const usersApi = createApi({
+export const usersApi = createApi({
     reducerPath: "usersApi",
     baseQuery: fetchBaseQuery({
         baseUrl: process.env.REACT_APP_BASE_URL,
@@ -22,7 +22,7 @@ const usersApi = createApi({
             }),
         }),
 
-        addUser: builder.mutation<String, User>({
+        addUser: builder.mutation<String, {user:User}>({
             query: (user) => ({
                 url: `/api/users/addUser`,
                 method: 'POST',
