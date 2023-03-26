@@ -25,14 +25,14 @@ const authSlice = createSlice({
         setLoading: (state, { payload: { loading } }: PayloadAction<{ loading: boolean }>) => {
             state.loading = loading
         },
-        setAccessToken: (state,{payload:{token}}:PayloadAction<{token:string}>) => {
+        setAccessToken: (state, { payload: { token } }: PayloadAction<{ token: string }>) => {
             state.token = token
         }
 
     }
 })
 
-export const { setAuthData, setLoading } = authSlice.actions
+export const { setAuthData, setLoading, setAccessToken } = authSlice.actions
 export default authSlice.reducer
 
 export const selectAuth = (state: RootState) => state.auth
