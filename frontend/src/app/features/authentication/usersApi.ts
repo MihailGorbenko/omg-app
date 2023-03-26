@@ -1,19 +1,51 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-import { RootState } from "../../store/store";
+import { RootState, useAppDispatch } from "../../store/store";
 import { AuthErrorResponse, ErrorRawResponse, User } from "../../types/authSliceTypes";
+import type {
+    BaseQueryFn,
+    FetchArgs,
+    FetchBaseQueryError,
+} from '@reduxjs/toolkit/query'
+import { setAccessToken, setAuthData } from "./authSlice";
 
 
+const baseQuery = fetchBaseQuery({
+    baseUrl: process.env.REACT_APP_BASE_URL,
+    prepareHeaders: (headers, { getState }) => {
+        const token = (getState() as RootState).auth.token
+        headers.set('Authorization', `Bearer ${token}`)
+    }
+})
+
+const baseQueryWithRefresh: BaseQueryFn<string | FetchArgs, unknown, FetchBaseQueryError> =
+    async (args, api, extraOptions) => {
+        let res = await baseQuery(args, api, extraOptions)
+        if (res.error && res.error.status === 401) {
+            const refreshQuery = fetchBaseQuery({
+                baseUrl: process.env.REACT_APP_AUTH_URL,
+                method: 'POST',
+                credentials: 'include'
+            })
+            let refreshResp = await refreshQuery('/refreshToken', api, extraOptions)
+            if (!refreshResp.error) {
+                const data = refreshResp.data
+                const accessToken = (data as { accessToken: String }).accessToken.replaceAll('"', '')
+                localStorage.setItem('token', accessToken)
+                api.dispatch(setAccessToken({ token: accessToken }))
+                res = await baseQuery(args, api, extraOptions)
+            }
+            else {
+                api.dispatch(setAuthData({ user: null, token: null }))
+                localStorage.setItem('user', '')
+                localStorage.setItem('token', '')
+            }
+        }
+        return res
+    }
 
 export const usersApi = createApi({
     reducerPath: "usersApi",
-    baseQuery: fetchBaseQuery({
-        baseUrl: process.env.REACT_APP_BASE_URL,
-        prepareHeaders: (headers, { getState }) => {
-            const token = (getState() as RootState).auth.token
-            headers.set('Authorization', `Bearer ${token}`)
-        }
-    }),
-
+    baseQuery: baseQueryWithRefresh,
     endpoints: (builder) => ({
         getUser: builder.query<User | AuthErrorResponse, void>({
             query: () => ({
@@ -26,12 +58,12 @@ export const usersApi = createApi({
                     status: response.status,
                 }
             },
-            transformResponse: (response: {user:User}, meta, arg) => {
+            transformResponse: (response: { user: User }, meta, arg) => {
                 return response.user
             }
         }),
 
-        addUser: builder.mutation<String | AuthErrorResponse, {user:User}>({
+        addUser: builder.mutation<String | AuthErrorResponse, { user: User }>({
             query: (user) => ({
                 url: `/api/users/addUser`,
                 method: 'POST',

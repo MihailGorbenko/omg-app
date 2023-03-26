@@ -7,7 +7,10 @@ import {
   useResetPasswordMutation,
   useSetPasswordMutation,
 } from "../features/authentication/authApi";
-import { setAuthData } from "../features/authentication/authSlice";
+import {
+  setAccessToken,
+  setAuthData,
+} from "../features/authentication/authSlice";
 import {
   useAddUserMutation,
   useLazyGetUserQuery,
@@ -26,6 +29,8 @@ export const IndexPage: React.FC = () => {
   const { login, logout, loading, isLogin } = useLogin();
   let [error, setError] = useState(null);
   let { register } = useRegister();
+  const dispatch = useAppDispatch();
+  const [getUser] = useLazyGetUserQuery();
   return (
     <div>
       <h1>{loading ? "Loading" : ""}</h1>
@@ -58,12 +63,12 @@ export const IndexPage: React.FC = () => {
 
       <button
         onClick={async () => {
-          setError(null)
+          setError(null);
           register(
             {
               _id: "",
-              name: 'miha',
-              lastName: 'go',
+              name: "miha",
+              lastName: "go",
               email: `mito@exapmle.com`,
               avatar_url: "https://omgapp.pp.ua/api/storage/default.png",
             },
@@ -71,12 +76,28 @@ export const IndexPage: React.FC = () => {
           )
             .then((status) => console.log(status))
             .catch((err) => {
-              setError(err)
-              console.log((err as AuthErrorResponse).predicate)
+              setError(err);
+              console.log((err as AuthErrorResponse).predicate);
             });
         }}
       >
         Register random
+      </button>
+      <button
+        onClick={async () => {
+          dispatch(
+            setAccessToken({
+              token:
+                "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzZmU2NzE4NTk4MGVhMTE4NTZhYjg4YSIsImlhdCI6MTY3OTI0MDA5MSwiZXhwIjoxNjc5MjQwNjkxfQ.ycs68kmY_jp2IhUZ_1OEmBt4-z_8q31gHPVfYuxeKOs",
+            })
+          );
+          getUser()
+            .unwrap()
+            .then((id) => console.log(id))
+            .catch((err) => console.log(err));
+        }}
+      >
+        expire token
       </button>
     </div>
   );
