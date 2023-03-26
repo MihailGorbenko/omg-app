@@ -10,7 +10,7 @@ export const usersApi = createApi({
         baseUrl: process.env.REACT_APP_BASE_URL,
         prepareHeaders: (headers, { getState }) => {
             const token = (getState() as RootState).auth.token
-            headers.set('Authorization', `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzZmU2NzE4NTk4MGVhMTE4NTZhYjg4YSIsImlhdCI6MTY3OTc4NTAyMiwiZXhwIjoxNjc5Nzg1NjIyfQ.GD1rsnVTO9MNOGce7o-4eZjIUhHFT3YSGft05HaLrpk`)
+            headers.set('Authorization', `Bearer ${token}`)
         }
     }),
 
@@ -25,6 +25,9 @@ export const usersApi = createApi({
                     predicate: response.data?.predicate,
                     status: response.status,
                 }
+            },
+            transformResponse: (response: {user:User}, meta, arg) => {
+                return response.user
             }
         }),
 

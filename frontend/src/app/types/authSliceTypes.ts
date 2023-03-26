@@ -6,10 +6,11 @@ export interface AuthCredentials {
 }
 
 
-export type AuthData = {
+export type AuthState = {
     isLogin: boolean
     user: User | null,
-    token: String | null
+    token: String | null,
+    loading:boolean
 }
 
 export type User = {

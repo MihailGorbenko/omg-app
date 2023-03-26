@@ -13,7 +13,6 @@ import { addUserBody } from './testData'
 const expect = chai.expect
 let db: DB
 let app: Express
-let accessToken: String
 let id: String
 chai.use(chai_http)
 
@@ -23,12 +22,6 @@ describe('Testing route: POST /api/users/addUser', () => {
         db = await createDatabase()
         app = createApp(db)
         id = crypto.randomUUID().slice(0, 24).replace(/-/g, 'b')
-
-        accessToken = JWT.sign({
-            id
-        }, config.get('jwt_secret'), { expiresIn: 600 })
-
-
     })
     describe('When passed correct User object', () => {
         describe('When user not exist', () => {
@@ -36,7 +29,6 @@ describe('Testing route: POST /api/users/addUser', () => {
             before((done) => {
                 chai.request(app)
                     .post('/api/users/addUser')
-                    .set('Authorization', `Bearer ${accessToken}`)
                     .send({
                         user: {
                             _id: id,
@@ -69,7 +61,6 @@ describe('Testing route: POST /api/users/addUser', () => {
             before((done) => {
                 chai.request(app)
                     .post('/api/users/addUser')
-                    .set('Authorization', `Bearer ${accessToken}`)
                     .send({
                         user: {
                             _id: id,
@@ -82,7 +73,6 @@ describe('Testing route: POST /api/users/addUser', () => {
                     .end((err, response) => {
                         chai.request(app)
                             .post('/api/users/addUser')
-                            .set('Authorization', `Bearer ${accessToken}`)
                             .send({
                                 user: {
                                     _id: id,
@@ -121,7 +111,6 @@ describe('Testing route: POST /api/users/addUser', () => {
                 before((done) => {
                     chai.request(app)
                         .post('/api/users/addUser')
-                        .set('Authorization', `Bearer ${accessToken}`)
                         .send(test.body)
                         .end((err, response) => {
                             res = response

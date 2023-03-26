@@ -11,7 +11,6 @@ const appRouter = Router()
 if (process.env.NODE_ENV === 'test') {
     appRouter.use('/test', testRouter)
 }
-appRouter.use(jwtAuth())
 appRouter.use('/api/users/addUser',addUserRouter)
 appRouter.use('/api/users/getUser',getUserRouter)
 

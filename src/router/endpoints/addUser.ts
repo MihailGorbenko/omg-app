@@ -48,10 +48,6 @@ addUserRouter.post(
             const database = req.database
             const { user } = req.body as { user: User }
 
-            //check if passed correct user Id
-            if (user._id !== req.userId) user._id = req.userId
-
-
             //Check if user already exists
             const userExist = await database.getUser(user._id)
             if (userExist) {

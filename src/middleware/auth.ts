@@ -29,7 +29,8 @@ export default function jwtAuth() {
 
             req.userId = decoded.id
 
-        } catch (err: VerifyErrors | any) {
+        } catch (err: VerifyErrors | any) 
+        {
             return res.status(ResponceStatus.NotAuthorized).json({
                 message: 'Access token invalid or expired',
                 predicate: 'EXPIRED'

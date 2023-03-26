@@ -1,16 +1,18 @@
-import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
+import { createApi, fetchBaseQuery, retry } from '@reduxjs/toolkit/query/react'
 import { response } from 'express'
 import { url } from 'inspector'
 import { ErrorRawResponse, AuthCredentials, AuthErrorResponse, LoginResponse, RegisterResponse, CheckEmailResponse, SetPasswordResponse } from '../../types/authSliceTypes'
 
+const staggeredRetry = retry(fetchBaseQuery({
+    baseUrl: process.env.REACT_APP_AUTH_URL,
+    credentials: 'include'
+}),
+    { maxRetries: 5 }
+)
 
 export const authApi = createApi({
     reducerPath: 'authApi',
-    baseQuery: fetchBaseQuery({
-        baseUrl: process.env.REACT_APP_AUTH_URL,
-        credentials: 'include'
-    }),
-
+    baseQuery: staggeredRetry,
     endpoints: (builder) => ({
         login: builder.mutation<String | AuthErrorResponse, AuthCredentials>({
             query: (credentials) => ({
@@ -19,7 +21,8 @@ export const authApi = createApi({
                 body: credentials
             }),
             transformResponse: (response: LoginResponse, meta, arg) => {
-                return response.accessToken
+
+                return response.accessToken.replaceAll('"', '')
             },
             transformErrorResponse: (response: ErrorRawResponse, meta, arg) => {
                 return {
@@ -107,13 +110,13 @@ export const authApi = createApi({
         }),
 
         setPassword: builder.mutation<SetPasswordResponse | AuthErrorResponse, { password: String, token: String }>({
-            query:(payload) => ({
+            query: (payload) => ({
                 url: '/setPassword',
-                method:'POST',
+                method: 'POST',
                 body: payload
             }),
 
-            transformResponse: (response:{message:String},meta,arg) => {
+            transformResponse: (response: { message: String }, meta, arg) => {
                 return {
                     message: response.message,
                     status: meta?.response?.status,
