@@ -41,7 +41,7 @@ export const IndexPage: React.FC = () => {
         onClick={async () => {
           setError(null);
           login({
-            email: "gomihagle@gmail.com",
+            email: "gomiha@test.com",
             password: "mihana1234",
           })
             .then((status) => console.log(status))
@@ -69,8 +69,9 @@ export const IndexPage: React.FC = () => {
               _id: "",
               name: "miha",
               lastName: "go",
-              email: `mito@exapmle.com`,
-              avatar_url: "https://omgapp.pp.ua/api/storage/default.png",
+              email: `gomiha@test.com`,
+              avatar_url: "http://localhost:5000/api/storage/default.png",
+              avatar_min_url: "http://localhost:5000/api/storage/default_min.png"
             },
             "mihana1234"
           )

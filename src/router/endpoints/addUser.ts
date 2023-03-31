@@ -26,7 +26,10 @@ addUserRouter.post(
 
         body('user.avatar_url', 'bad avatar url')
             .trim()
-            .isURL(),
+            .isString(),
+        body('user.avatar_min_url', 'bad avatar min url')
+            .trim()
+            .isString(),
         body('user.email', 'bad email')
             .trim()
             .isEmail(),

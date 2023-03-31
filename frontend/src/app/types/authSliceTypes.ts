@@ -18,7 +18,8 @@ export type User = {
     name: String,
     lastName: String,
     email:String,
-    avatar_url: String
+    avatar_url: String,
+    avatar_min_url:String
 }
 
 export type ErrorRawResponse = {

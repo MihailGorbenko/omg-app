@@ -12,11 +12,14 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import classNames from "classnames";
 import "../styles/NavPanel/NavPanel_override.css";
 import { NavLink } from "react-router-dom";
+import { useTypedSelector } from "../store/store";
+import { selectAuth } from "../features/authentication/authSlice";
 
 export const NavPanel: React.FC = () => {
   const { isLogin, logout } = useLogin();
   const navigate = useNavigate();
   const path = useLocation().pathname;
+  const authUser = useTypedSelector(selectAuth)
 
   async function handleLogout() {
     await logout();
@@ -39,7 +42,7 @@ export const NavPanel: React.FC = () => {
         </Navbar.Brand>
         {isLogin && <Image
           roundedCircle
-          src="https://images.dog.ceo/breeds/greyhound-italian/n02091032_10644.jpg"
+          src={authUser.user ? authUser.user.avatar_min_url.toString() : " "}
           className={classNames(
             styles['user-avatar-min'],
             "me-1 me-md-3")} />

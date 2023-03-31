@@ -35,7 +35,8 @@ describe('Testing route: POST /api/users/addUser', () => {
                             name: 'miha',
                             lastName: ' ',
                             email: 'gomihagle@gmail.com',
-                            avatar_url: 'https://omgapp.pp.ua/api/storage/default.png'
+                            avatar_url: 'https://omgapp.pp.ua/api/storage/default.png',
+                            avatar_min_url: 'https://omgapp.pp.ua/api/storage/default_min.png'
                         }
                     })
                     .end((err, response) => {
@@ -67,7 +68,8 @@ describe('Testing route: POST /api/users/addUser', () => {
                             name: 'miha',
                             lastName: ' ',
                             email: 'gomihagle@gmail.com',
-                            avatar_url: 'https://omgapp.pp.ua/api/storage/default.png'
+                            avatar_url: 'https://omgapp.pp.ua/api/storage/default.png',
+                            avatar_min_url: 'https://omgapp.pp.ua/api/storage/default_min.png'
                         }
                     })
                     .end((err, response) => {
@@ -79,7 +81,8 @@ describe('Testing route: POST /api/users/addUser', () => {
                                     name: 'miha',
                                     lastName: ' ',
                                     email: 'gomihagle@gmail.com',
-                                    avatar_url: 'https://omgapp.pp.ua/api/storage/default.png'
+                                    avatar_url: 'https://omgapp.pp.ua/api/storage/default.png',
+                                    avatar_min_url: 'https://omgapp.pp.ua/api/storage/default_min.png'
                                 }
                             })
                             .end((err, response) => {

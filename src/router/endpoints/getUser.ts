@@ -29,7 +29,8 @@ getUserRouter.get(
                     name: user.name,
                     lastName: user.lastName,
                     email: user.email,
-                    avatar_url: user.avatar_url
+                    avatar_url: user.avatar_url,
+                    avatar_min_url: user.avatar_min_url
                 }
             })
 

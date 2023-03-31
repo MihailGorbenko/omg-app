@@ -14,10 +14,12 @@ export default function createApp(db: DB): Express {
     if (process.env.NODE_ENV !== 'production') {
         app.use(cors())
     }
+    else { app.use(helmet()) }
+
     app.use(express.json())
     app.use(cookieParser())
-    app.use(helmet())
     app.use(express.static(path.resolve(__dirname, '../frontend/build')))
+    app.use('/api/storage', express.static(path.resolve(__dirname, 'userData')))
     app.use(attachDatabase(db))
     app.use('/', appRouter)
     app.get('/:universalURL', (req, res) => {

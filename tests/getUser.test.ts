@@ -42,7 +42,8 @@ describe('Testing route: GET /api/users/getUser', () => {
                         name: 'miha',
                         lastName: ' ',
                         email: 'gomihagle@gmail.com',
-                        avatar_url: 'https://omgapp.pp.ua/api/storage/default.png'
+                        avatar_url: 'https://omgapp.pp.ua/api/storage/default.png',
+                        avatar_min_url: 'https://omgapp.pp.ua/api/storage/default.png'
                     }
                 })
                 .end((err, response) => {
@@ -66,7 +67,7 @@ describe('Testing route: GET /api/users/getUser', () => {
             done()
         })
         it('should respond valid User object ', (done) => {
-            expect(res.body.user).to.have.all.keys(['_id','name','lastName','email','avatar_url']),
+            expect(res.body.user).to.have.all.keys(['_id','name','lastName','email','avatar_url','avatar_min_url']),
             expect(res.body.user._id).to.equals(id)
             expect(res.body.user.email).not.to.be.undefined
             expect(res.body.user.name).not.to.be.undefined

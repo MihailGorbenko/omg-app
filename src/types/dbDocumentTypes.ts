@@ -5,11 +5,13 @@ export type UserRecord = (mongoose.Document<unknown, {}, {
     lastName: string;
     email: string;
     avatar_url: string;
+    avatar_min_url: string;
 }> & Omit<{
     name: string;
     lastName: string;
     email: string;
     avatar_url: string;
+    avatar_min_url: string;
 } & {
 
 }, never>) | null
