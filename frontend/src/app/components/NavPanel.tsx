@@ -73,7 +73,7 @@ export const NavPanel: React.FC = () => {
                 Logout
                 <FontAwesomeIcon
                   icon={["fas", "person-walking-luggage"]}
-                  size="sm"
+                  height={14}
                   className={styles["logout-logo"]}
                 />
               </Button>
@@ -83,7 +83,8 @@ export const NavPanel: React.FC = () => {
                   styles["login-out-button"],
                   "order-1",
                   "order-md-0",
-                  "mt-2 mt-md-0"
+                  "mt-2 mt-md-0",
+                  "d-flex"
                 )}
                 variant="outline-success"
               >
@@ -91,7 +92,7 @@ export const NavPanel: React.FC = () => {
                   Login
                   <FontAwesomeIcon
                     icon={["fas", "rocket"]}
-                    size="sm"
+                    height={14}
                     className={styles["logout-logo"]}
                   />
                 </NavLink>

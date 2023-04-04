@@ -9,7 +9,8 @@ const initialState: AuthState = {
     user: user ? JSON.parse(user) : user,
     token: token,
     isLogin: (user && token) ? true : false,
-    loading: false
+    loading: false,
+    progress: 0
 }
 
 const authSlice = createSlice({
@@ -27,12 +28,15 @@ const authSlice = createSlice({
         },
         setAccessToken: (state, { payload: { token } }: PayloadAction<{ token: string }>) => {
             state.token = token
+        },
+        setProgress: (state, { payload: { progress } }: PayloadAction<{ progress: number }>) => {
+            state.progress = progress
         }
 
     }
 })
 
-export const { setAuthData, setLoading, setAccessToken } = authSlice.actions
+export const { setAuthData, setLoading, setAccessToken, setProgress } = authSlice.actions
 export default authSlice.reducer
 
 export const selectAuth = (state: RootState) => state.auth

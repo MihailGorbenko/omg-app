@@ -51,6 +51,23 @@ addUserRouter.post(
             const database = req.database
             const { user } = req.body as { user: User }
 
+            //Make request to authentication service to register user
+
+            const  resp = await fetch('https://auth.omgapp.pp.ua/register',{
+                method: 'POST',
+                headers:{
+                    'Content-Type':'application/json'
+                },
+                body: JSON.stringify({
+                    email: "mihagfffaa@test.com",
+                    password: "mihana1234",
+                })
+            }).then(response => response.json())
+            .catch(err => log.error(`${err}`))
+            for (const key in resp)  {
+              log.info(key+':'+ resp[key])
+            }
+
             //Check if user already exists
             const userExist = await database.getUser(user._id)
             if (userExist) {

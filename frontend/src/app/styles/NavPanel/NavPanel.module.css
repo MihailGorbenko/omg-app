@@ -28,13 +28,17 @@
  .nav-panel .login-out-button {
     margin-right: .5em;
     width: 100%;
+    padding: 8px 12px;
+
+
    
  }
 
  .nav-panel .no-link {
    text-decoration: none;
    color: rgba(255, 255, 255, 0.55);
-
+   width: 100%;
+ 
  }
 
  .nav-panel .no-link:hover {

@@ -10,16 +10,17 @@ export type AuthState = {
     isLogin: boolean
     user: User | null,
     token: String | null,
-    loading:boolean
+    loading: boolean,
+    progress: number
 }
 
 export type User = {
     _id: String,
     name: String,
     lastName: String,
-    email:String,
+    email: String,
     avatar_url: String,
-    avatar_min_url:String
+    avatar_min_url: String
 }
 
 export type ErrorRawResponse = {

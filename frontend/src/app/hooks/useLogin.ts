@@ -1,9 +1,11 @@
 import { selectAuth } from "../features/authentication/authSlice";
 import { useAppDispatch, useTypedSelector } from "../store/store";
-import { setAuthData, setLoading } from "../features/authentication/authSlice";
+import { setAuthData } from "../features/authentication/authSlice";
 import { AuthCredentials, AuthErrorResponse, User } from "../types/authSliceTypes";
 import { useLoginMutation } from "../features/authentication/authApi";
 import { useLazyGetUserQuery } from "../features/authentication/usersApi";
+import useProgress from "./useProgress";
+import useLoader from "./useLoader";
 
 
 export type UseLoginReturnType = {
@@ -19,18 +21,21 @@ export function useLogin(): UseLoginReturnType {
     const authState = useTypedSelector(selectAuth)
     const [tryLogin] = useLoginMutation()
     const [getUser] = useLazyGetUserQuery()
+    const progress = useProgress()
+    const loader = useLoader()
 
 
     function login(credentials: AuthCredentials): Promise<Boolean | AuthErrorResponse> {
 
         return new Promise((resolve, reject) => {
-            dispatch(setLoading({ loading: true }))
+            loader.on()
             if (authState.isLogin) {
-                dispatch(setLoading({ loading: false }))
+                loader.off()
                 resolve(true)
             }
             else {
                 let accessToken: string 
+                progress.set(5)
                 tryLogin(credentials)
                     .unwrap()
                     .then(token => {
@@ -39,6 +44,7 @@ export function useLogin(): UseLoginReturnType {
                             user: authState.user,
                             token: accessToken 
                         }))
+                        progress.set(50)
                         getUser()
                             .unwrap()
                             .then((resp) => {
@@ -51,19 +57,23 @@ export function useLogin(): UseLoginReturnType {
                                         token: accessToken
                                     }))
                                     
-                                    dispatch(setLoading({ loading: false }))
+                                    loader.off()
+                                    progress.done()
                                 } catch (err: any) {
-                                    dispatch(setLoading({ loading: false }))
+                                    loader.off()
+                                    progress.off()
                                     reject(err)
                                 }
                             })
                             .catch((err: AuthErrorResponse) => {
-                                dispatch(setLoading({ loading: false }))
+                                loader.off()
+                                progress.off()
                                 reject(err)
                             })
                     })
                     .catch((err: AuthErrorResponse) => {
-                        dispatch(setLoading({ loading: false }))
+                        loader.off()
+                        progress.off()
                         reject(err)
                     })
             }
@@ -75,16 +85,16 @@ export function useLogin(): UseLoginReturnType {
     function logout(): Promise<Boolean | any> {
         return new Promise((resolve, reject) => {
             try {
-                dispatch(setLoading({ loading: true }))
+                loader.on()
                 localStorage.setItem('user', '')
                 localStorage.setItem('token', '')
                 dispatch(setAuthData({ user: null, token: null }))
-                dispatch(setLoading({ loading: false }))
+                loader.off()
                 resolve(true)
             }
             catch (e: any) {
                 console.log(e)
-                dispatch(setLoading({ loading: false }))
+                loader.off()
                 reject(e)
             }
 
