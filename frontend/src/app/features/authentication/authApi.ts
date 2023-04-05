@@ -48,23 +48,6 @@ export const authApi = createApi({
             }
         }),
 
-        register: builder.mutation<String | AuthErrorResponse, AuthCredentials>({
-            query: (credentials) => ({
-                url: '/register',
-                method: 'POST',
-                body: credentials
-            }),
-            transformResponse: (response: RegisterResponse, meta, arg) => {
-                return response.userId
-            },
-            transformErrorResponse: (response: ErrorRawResponse, meta, arg) => {
-                return {
-                    predicate: response.data?.predicate,
-                    status: response.status,
-                }
-            }
-        }),
-
         resetPassword: builder.mutation<number | undefined | AuthErrorResponse, { email: String }>({
             query: (credentials) => ({
                 url: '/resetPassword',
@@ -138,7 +121,6 @@ export const authApi = createApi({
 export const {
     useLoginMutation,
     useRefreshTokenMutation,
-    useRegisterMutation,
     useResetPasswordMutation,
     useCheckEmailMutation,
     useSetPasswordMutation } = authApi

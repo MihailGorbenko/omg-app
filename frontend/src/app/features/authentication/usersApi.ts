@@ -63,11 +63,11 @@ export const usersApi = createApi({
             }
         }),
 
-        addUser: builder.mutation<String | AuthErrorResponse, { user: User }>({
-            query: (user) => ({
-                url: `/api/users/addUser`,
+        registerUser: builder.mutation<String | AuthErrorResponse, { user: User, password: string }>({
+            query: (payload) => ({
+                url: `/api/users/registerUser`,
                 method: 'POST',
-                body: user,
+                body: payload,
             }),
             transformErrorResponse: (response: ErrorRawResponse, meta, arg) => {
                 return {
@@ -80,4 +80,4 @@ export const usersApi = createApi({
     })
 })
 
-export const { useAddUserMutation, useLazyGetUserQuery } = usersApi
+export const { useRegisterUserMutation, useLazyGetUserQuery } = usersApi

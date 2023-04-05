@@ -1,4 +1,4 @@
-
+  
 
 export const addUserBody = [
 
@@ -12,42 +12,24 @@ export const addUserBody = [
         body: {
             user: {
 
-            }
+            },
+            password:'12345miha'
         }
     },
-    {
-        case: 'when _id incorrect',
-        body: {
-            user: {
-                _id: 'dsfsdfsdfsdfsd',
-                email: 'gomihagle@gmail.com',
-                name: 'miha',
-                lastName: 'go',
-                avatar_url: 'https://omgapp.pp.ua/api/storage/default.png'
-            }
-        }
-    },
-    {
-        case: 'when _id missing',
-        body: {
-            user: {
-                email: 'gomihagle@gmail.com',
-                name: 'miha',
-                lastName: 'go',
-                avatar_url: 'https://omgapp.pp.ua/api/storage/default.png'
-            }
-        }
-    },
+   
+
     {
         case: 'when email incorrect',
         body: {
             user: {
                 _id: '2c7b0b09ba7c5b4d4db9a87b',
-                email: 'gomihaglemail.com',
+                email:'dsfksdf.sdasda./asdas',
                 name: 'miha',
                 lastName: 'go',
-                avatar_url: 'https://omgapp.pp.ua/api/storage/default.png'
-            }
+                avatar_url: 'https://omgapp.pp.ua/api/storage/default.png',
+                avatar_min_url: 'https://omgapp.pp.ua/api/storage/default.png'
+            },
+            password:'12345miha'
         }
     },
     {
@@ -57,8 +39,10 @@ export const addUserBody = [
                 _id: '2c7b0b09ba7c5b4d4db9a87b',
                 name: 'miha',
                 lastName: 'go',
-                avatar_url: 'https://omgapp.pp.ua/api/storage/default.png'
-            }
+                avatar_url: 'https://omgapp.pp.ua/api/storage/default.png',
+                avatar_min_url: 'https://omgapp.pp.ua/api/storage/default.png'
+            },
+            password:'12345miha'
         }
     },
     {
@@ -66,11 +50,13 @@ export const addUserBody = [
         body: {
             user: {
                 _id: '2c7b0b09ba7c5b4d4db9a87b',
-                email: 'gomihaglemail.com',
+                email:`${crypto.randomUUID().slice(0, 8)}@example.com`,
                 name: 'm',
                 lastName: 'go',
-                avatar_url: 'https://omgapp.pp.ua/api/storage/default.png'
-            }
+                avatar_url: 'https://omgapp.pp.ua/api/storage/default.png',
+                avatar_min_url: 'https://omgapp.pp.ua/api/storage/default.png'
+            },
+            password:'12345miha'
         }
     },
     {
@@ -78,10 +64,12 @@ export const addUserBody = [
         body: {
             user: {
                 _id: '2c7b0b09ba7c5b4d4db9a87b',
-                email: 'gomihaglemail.com',
+                email:`${crypto.randomUUID().slice(0, 8)}@example.com`,
                 lastName: 'go',
-                avatar_url: 'https://omgapp.pp.ua/api/storage/default.png'
-            }
+                avatar_url: 'https://omgapp.pp.ua/api/storage/default.png',
+                avatar_min_url: 'https://omgapp.pp.ua/api/storage/default.png'
+            },
+            password:'12345miha'
         }
     },
     {
@@ -89,11 +77,13 @@ export const addUserBody = [
         body: {
             user: {
                 _id: '2c7b0b09ba7c5b4d4db9a87b',
-                email: 'gomihaglemail.com',
+                email:`${crypto.randomUUID().slice(0, 8)}@example.com`,
                 name: 'miha',
                 lastName: 'g',
-                avatar_url: 'https://omgapp.pp.ua/api/storage/default.png'
-            }
+                avatar_url: 'https://omgapp.pp.ua/api/storage/default.png',
+                avatar_min_url: 'https://omgapp.pp.ua/api/storage/default.png'
+            },
+            password:'12345miha'
         }
     },
     {
@@ -101,11 +91,13 @@ export const addUserBody = [
         body: {
             user: {
                 _id: '2c7b0b09ba7c5b4d4db9a87b',
-                email: 'gomihaglemail.com',
+                email:`${crypto.randomUUID().slice(0, 8)}@example.com`,
                 name: 'miha',
                 lastName: 'g',
-                avatar_url: 'https://omgapp.pp.ua/api/storage/default.png'
-            }
+                avatar_url: 'https://omgapp.pp.ua/api/storage/default.png',
+                avatar_min_url: 'https://omgapp.pp.ua/api/storage/default.png'
+            },
+            password:'12345miha'
         }
     },
     {
@@ -113,11 +105,13 @@ export const addUserBody = [
         body: {
             user: {
                 _id: '2c7b0b09ba7c5b4d4db9a87b',
-                email: 'gomihaglemail.com',
+                email:`${crypto.randomUUID().slice(0, 8)}@example.com`,
                 name: 'miha',
                 lastName: 'g',
-                avatar_url: 'omgapp.pp.ua-api.\\\name'
-            }
+                avatar_url: 'omgapp.pp.ua-api.\\\name',
+                avatar_min_url: 'https://omgapp.pp.ua/api/storage/default.png'
+            },
+            password:'12345miha'
         }
     },
     {
@@ -125,12 +119,71 @@ export const addUserBody = [
         body: {
             user: {
                 _id: '2c7b0b09ba7c5b4d4db9a87b',
-                email: 'gomihaglemail.com',
+                email:`${crypto.randomUUID().slice(0, 8)}@example.com`,
                 name: 'miha',
                 lastName: 'g',
+                avatar_min_url: 'https://omgapp.pp.ua/api/storage/default.png'
+            },
+            password:'12345miha'
+        }
+    },
+    {
+        case: 'when avatar min url incorrect',
+        body: {
+            user: {
+                _id: '2c7b0b09ba7c5b4d4db9a87b',
+                email:`${crypto.randomUUID().slice(0, 8)}@example.com`,
+                name: 'miha',
+                lastName: 'g',
+                avatar_url: 'https://omgapp.pp.ua/api/storage/default.png',
+                avatar_min_url: 'omgapp.pp.ua-api.\\\name'
+            },
+            password:'12345miha'
+        }
+    },
+    {
+        case: 'when avatar min url is missing',
+        body: {
+            user: {
+                _id: '2c7b0b09ba7c5b4d4db9a87b',
+                email:`${crypto.randomUUID().slice(0, 8)}@example.com`,
+                name: 'miha',
+                lastName: 'g',
+                avatar_url: 'https://omgapp.pp.ua/api/storage/default.png',
+            },
+            password:'12345miha'
+        }
+    },
+    
+    {
+        case: 'when password  missing',
+        body: {
+            user: {
+                _id: '2c7b0b09ba7c5b4d4db9a87b',
+                email:`${crypto.randomUUID().slice(0, 8)}@example.com`,
+                name: 'miha',
+                lastName: 'g',
+                avatar_url: 'https://omgapp.pp.ua/api/storage/default.png',
+                avatar_min_url: 'https://omgapp.pp.ua/api/storage/default.png'
+
             }
         }
     },
+    {
+        case: 'when password is incorrect',
+        body: {
+            user: {
+                _id: '2c7b0b09ba7c5b4d4db9a87b',
+                email:`${crypto.randomUUID().slice(0, 8)}@example.com`,
+                name: 'miha',
+                lastName: 'g',
+                avatar_url: 'https://omgapp.pp.ua/api/storage/default.png',
+                avatar_min_url: 'https://omgapp.pp.ua/api/storage/default.png'
+            },
+            password:'123'
+        }
+    },
+
 
 
 ]

@@ -3,7 +3,6 @@ import {
   useCheckEmailMutation,
   useLoginMutation,
   useRefreshTokenMutation,
-  useRegisterMutation,
   useResetPasswordMutation,
   useSetPasswordMutation,
 } from "../features/authentication/authApi";
@@ -12,7 +11,6 @@ import {
   setAuthData,
 } from "../features/authentication/authSlice";
 import {
-  useAddUserMutation,
   useLazyGetUserQuery,
 } from "../features/authentication/usersApi";
 import { useLogin } from "../hooks/useLogin";
@@ -41,7 +39,7 @@ export const IndexPage: React.FC = () => {
         onClick={async () => {
           setError(null);
           login({
-            email: "xcvx@test.com",
+            email: "usermiha@test.com",
             password: "mihana1234",
           })
             .then((status) => console.log(status))
@@ -69,7 +67,7 @@ export const IndexPage: React.FC = () => {
               _id: "",
               name: "miha",
               lastName: "go",
-              email: `xcvx@test.com`,
+              email: `usermiha@test.com`,
               avatar_url: "http://localhost:5000/api/storage/default.png",
               avatar_min_url: "http://localhost:5000/api/storage/default_min.png"
             },

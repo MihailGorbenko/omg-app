@@ -35,10 +35,14 @@ export const NavPanel: React.FC = () => {
     >
       <Container fluid>
         <Navbar.Brand className={styles["nav-logo"]}>
-          <Link to="/home" className="nav-link">
+          <Nav.Link
+            as={NavLink}
+            href="/home"
+            to="/home"
+            className="nav-link">
             <FontAwesomeIcon icon={["fas", "user-astronaut"]} size="xl" />
             <sup>mg</sup>
-          </Link>
+          </Nav.Link>
         </Navbar.Brand>
         {isLogin && <Image
           roundedCircle
@@ -88,17 +92,23 @@ export const NavPanel: React.FC = () => {
                 )}
                 variant="outline-success"
               >
-                <NavLink to="/login" className={styles["no-link"]}>
+                <Nav.Link
+                  as={NavLink}
+                  href="/login"
+                  to="/login"
+                  className={styles["no-link"]}>
                   Login
                   <FontAwesomeIcon
                     icon={["fas", "rocket"]}
                     height={14}
                     className={styles["logout-logo"]}
                   />
-                </NavLink>
+                </Nav.Link>
               </Button>
             )}
-            <NavLink
+            <Nav.Link
+              as={NavLink}
+              href="/home"
               to="/home"
               className={classNames(
                 "nav-link",
@@ -107,8 +117,10 @@ export const NavPanel: React.FC = () => {
               )}
             >
               Home
-            </NavLink>
-            <NavLink
+            </Nav.Link>
+            <Nav.Link
+              as={NavLink}
+              href="/about"
               to="/about"
               className={classNames(
                 "nav-link",
@@ -117,7 +129,7 @@ export const NavPanel: React.FC = () => {
               )}
             >
               About
-            </NavLink>
+            </Nav.Link>
           </Nav>
         </Navbar.Collapse>
       </Container>
