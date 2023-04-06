@@ -68,8 +68,8 @@ export const IndexPage: React.FC = () => {
               name: "miha",
               lastName: "go",
               email: `usermiha@test.com`,
-              avatar_url: "http://localhost:5000/api/storage/default.png",
-              avatar_min_url: "http://localhost:5000/api/storage/default_min.png"
+              avatar_url: "/api/storage/default.png",
+              avatar_min_url: "/api/storage/default_min.png"
             },
             "mihana1234"
           )

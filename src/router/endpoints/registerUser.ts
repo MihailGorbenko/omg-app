@@ -24,10 +24,12 @@ registerUserRouter.post(
             .isString(),
         body('user.avatar_url', 'bad avatar url')
             .trim()
-            .isString(),
+            .isString()
+            .isURL({ require_host: false, require_port: false, require_protocol: false }),
         body('user.avatar_min_url', 'bad avatar min url')
             .trim()
-            .isString(),
+            .isString()
+            .isURL({ require_host: false, require_port: false, require_protocol: false }),
         body('user.email', 'bad email')
             .trim()
             .isEmail(),

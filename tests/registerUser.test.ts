@@ -13,7 +13,7 @@ import { addUserBody } from './testData'
 const expect = chai.expect
 let db: DB
 let app: Express
-let mail:string
+let mail: string
 chai.use(chai_http)
 
 
@@ -21,7 +21,7 @@ describe('Testing route: POST /api/users/registerUser', () => {
     before(async () => {
         db = await createDatabase()
         app = createApp(db)
-        mail =  crypto.randomUUID().slice(0, 8)
+        mail = crypto.randomUUID().slice(0, 8)
     })
     describe('When passed correct User object', () => {
         describe('When user not exist', () => {
@@ -35,8 +35,8 @@ describe('Testing route: POST /api/users/registerUser', () => {
                             name: 'miha',
                             lastName: ' ',
                             email: `${mail}@gmail.com`,
-                            avatar_url: 'https://omgapp.pp.ua/api/storage/default.png',
-                            avatar_min_url: 'https://omgapp.pp.ua/api/storage/default_min.png'
+                            avatar_url: '/api/storage/default.png',
+                            avatar_min_url: '/api/storage/default_min.png'
                         },
                         password: "12345miha"
                     })
@@ -68,8 +68,8 @@ describe('Testing route: POST /api/users/registerUser', () => {
                             name: 'miha',
                             lastName: ' ',
                             email: 'gomihagle@gmail.com',
-                            avatar_url: 'https://omgapp.pp.ua/api/storage/default.png',
-                            avatar_min_url: 'https://omgapp.pp.ua/api/storage/default_min.png'
+                            avatar_url: '/api/storage/default.png',
+                            avatar_min_url: '/api/storage/default_min.png'
                         },
                         password: '12345miha'
                     })
@@ -82,10 +82,10 @@ describe('Testing route: POST /api/users/registerUser', () => {
                                     name: 'miha',
                                     lastName: ' ',
                                     email: 'gomihagle@gmail.com',
-                                    avatar_url: 'https://omgapp.pp.ua/api/storage/default.png',
-                                    avatar_min_url: 'https://omgapp.pp.ua/api/storage/default_min.png'
+                                    avatar_url: '/api/storage/default.png',
+                                    avatar_min_url: '/api/storage/default_min.png'
                                 },
-                                password:'12345miha'
+                                password: '12345miha'
                             })
                             .end((err, response) => {
                                 res = response
@@ -118,9 +118,6 @@ describe('Testing route: POST /api/users/registerUser', () => {
                         .post('/api/users/registerUser')
                         .send(test.body)
                         .end((err, response) => {
-                            
-                            console.log(response.body);
-                            
                             res = response
                             done()
                         })
@@ -133,7 +130,7 @@ describe('Testing route: POST /api/users/registerUser', () => {
 
                     it('should respond json with {message,predicate, errors} fields', (done) => {
                         expect(res).to.be.json
-                        expect(res.body).to.have.all.keys(['message', 'predicate','errors'])
+                        expect(res.body).to.have.all.keys(['message', 'predicate', 'errors'])
                         expect(res.body.predicate).not.to.be.undefined
                         expect(res.body.predicate).to.match(/INCORRECT/)
                         done()
