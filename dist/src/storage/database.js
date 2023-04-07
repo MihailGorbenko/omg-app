@@ -16,6 +16,7 @@ exports.Database = void 0;
 const config_1 = __importDefault(require("config"));
 const mongoose_1 = __importDefault(require("mongoose"));
 const log_1 = __importDefault(require("../utils/log"));
+const User_1 = __importDefault(require("../models/User"));
 class DB {
 }
 exports.default = DB;
@@ -40,6 +41,18 @@ class Database extends DB {
                 yield this.connection.close();
                 this.connection = null;
             }
+        });
+    }
+    addUser(user) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const savedUser = yield new User_1.default(user).save();
+            return savedUser.id;
+        });
+    }
+    getUser(_id) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const user = yield User_1.default.findOne({ _id });
+            return user;
         });
     }
 }

@@ -6,6 +6,7 @@ import DB from "./storage/database";
 import appRouter from './router/appRouter'
 import attachDatabase from './middleware/attachDatabase'
 import cors from 'cors'
+import { SELF, expressCspHeader } from 'express-csp-header'
 
 
 export default function createApp(db: DB): Express {
@@ -14,11 +15,17 @@ export default function createApp(db: DB): Express {
     if (process.env.NODE_ENV !== 'production') {
         app.use(cors())
     }
-    else { app.use(helmet()) }
+
+    app.use(expressCspHeader({
+        directives: {
+            "default-src": [SELF, 'https://auth.omgapp.pp.ua'],
+            "script-src": [SELF, 'https://auth.omgapp.pp.ua']
+        }
+    }))
 
     app.use(express.json())
     app.use(cookieParser())
-    app.use(express.static(path.resolve(__dirname, '../frontend/build')))
+    app.use(express.static(path.resolve(__dirname, '../../frontend/build')))
     app.use('/api/storage', express.static(path.resolve(__dirname, 'userData')))
     app.use(attachDatabase(db))
     app.use('/', appRouter)
