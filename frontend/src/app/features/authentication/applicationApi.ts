@@ -43,7 +43,7 @@ const baseQueryWithRefresh: BaseQueryFn<string | FetchArgs, unknown, FetchBaseQu
         return res
     }
 
-export const usersApi = createApi({
+export const applicationApi = createApi({
     reducerPath: "usersApi",
     baseQuery: baseQueryWithRefresh,
     endpoints: (builder) => ({
@@ -80,4 +80,4 @@ export const usersApi = createApi({
     })
 })
 
-export const { useRegisterUserMutation, useLazyGetUserQuery } = usersApi
+export const { useRegisterUserMutation, useLazyGetUserQuery } = applicationApi

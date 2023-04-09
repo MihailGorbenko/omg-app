@@ -1,5 +1,5 @@
 import { selectAuth } from "../features/authentication/authSlice";
-import { useRegisterUserMutation } from "../features/authentication/usersApi";
+import { useRegisterUserMutation } from "../features/authentication/applicationApi";
 import { useTypedSelector } from "../store/store";
 import { AuthErrorResponse, User } from "../types/authSliceTypes";
 import useLoader from "./useLoader";

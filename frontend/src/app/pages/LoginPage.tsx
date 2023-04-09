@@ -12,7 +12,7 @@ import {
 } from "../features/authentication/authSlice";
 import {
   useLazyGetUserQuery,
-} from "../features/authentication/usersApi";
+} from "../features/authentication/applicationApi";
 import { useLogin } from "../hooks/useLogin";
 import { useRegister } from "../hooks/useRegister";
 import { useAppDispatch } from "../store/store";

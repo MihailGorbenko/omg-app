@@ -3,7 +3,7 @@ import { useAppDispatch, useTypedSelector } from "../store/store";
 import { setAuthData } from "../features/authentication/authSlice";
 import { AuthCredentials, AuthErrorResponse, User } from "../types/authSliceTypes";
 import { useLoginMutation } from "../features/authentication/authApi";
-import { useLazyGetUserQuery } from "../features/authentication/usersApi";
+import { useLazyGetUserQuery } from "../features/authentication/applicationApi";
 import useProgress from "./useProgress";
 import useLoader from "./useLoader";
 
