@@ -23,7 +23,7 @@ export const NavPanel: React.FC = () => {
 
   async function handleLogout() {
     await logout();
-    navigate("/login");
+    navigate("/auth/login");
   }
 
   return (
@@ -37,8 +37,8 @@ export const NavPanel: React.FC = () => {
         <Navbar.Brand className={styles["nav-logo"]}>
           <Nav.Link
             as={NavLink}
-            href="/home"
-            to="/home"
+            href="/"
+            to="/"
             className="nav-link">
             <FontAwesomeIcon icon={["fas", "user-astronaut"]} size="xl" />
             <sup>mg</sup>
@@ -94,8 +94,8 @@ export const NavPanel: React.FC = () => {
               >
                 <Nav.Link
                   as={NavLink}
-                  href="/login"
-                  to="/login"
+                  href="/auth/login"
+                  to="/auth/login"
                   className={styles["no-link"]}>
                   Login
                   <FontAwesomeIcon
@@ -108,8 +108,8 @@ export const NavPanel: React.FC = () => {
             )}
             <Nav.Link
               as={NavLink}
-              href="/home"
-              to="/home"
+              href="/"
+              to="/"
               className={classNames(
                 "nav-link",
                 styles["nav-active-border"],

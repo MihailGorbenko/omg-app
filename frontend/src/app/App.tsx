@@ -1,38 +1,25 @@
-import { Routes, Route, BrowserRouter } from "react-router-dom";
+import { Routes, Route, BrowserRouter, Outlet, useNavigate } from "react-router-dom";
 import { NavPanel } from "./components/NavPanel";
 import { ProtectedRoute } from "./components/ProtectedRoute";
-import { HomePage } from "./pages/HomePage";
-import { IndexPage as LoginPage } from "./pages/LoginPage";
-import { ResetPasswordPage } from "./pages/ResetPasswordPage";
 import { ProgressBar } from "./components/ProgressBar";
 import { useTypedSelector } from "./store/store";
 import { selectAuth } from "./features/authentication/authSlice";
 import useProgress from "./hooks/useProgress";
+import { useEffect } from "react";
 
 
 export default function App() {
   const authState = useTypedSelector(selectAuth)
+  const navigate = useNavigate()
 
 
   return (
-    <BrowserRouter>
+    <>
       <NavPanel />
       {(authState.progress > 0 && authState.progress < 100)
-       && <ProgressBar progress={authState.progress} />}
-      <Routes>
-        <Route path="/" index element={<LoginPage />} />
-        <Route path="/login" element={<LoginPage />} />
-        <Route
-          path="/home"
-          element={
-            <ProtectedRoute>
-              <HomePage />
-            </ProtectedRoute>
-          }
-        />
+        && <ProgressBar progress={authState.progress} />}
+      <Outlet />
+    </>
 
-        <Route path="/resetPassword/:token" element={<ResetPasswordPage />} />
-      </Routes>
-    </BrowserRouter>
-  );
+  )
 }
