@@ -21,6 +21,7 @@ const NotFound= lazy(() => import('./app/pages/NotFound'))
 const Feed = lazy(() => import('./app/components/Feed'))
 const LoginForm = lazy(() => import('./app/components/LoginForm'))
 const RegisterForm = lazy(() => import('./app/components/RegisterForm'))
+const ResetPassword = lazy(() => import('./app/pages/ResetPassword'))
 
 const container = document.getElementById('root')!;
 const root = createRoot(container);
@@ -53,6 +54,11 @@ const router = createBrowserRouter(
           </Suspense>
         } />
       </Route>
+      <Route path='resetPassword/:token' element={
+        <Suspense>
+          <ResetPassword />
+        </Suspense>
+      } />
       <Route path='about' element={
         <Suspense>
           <About />
