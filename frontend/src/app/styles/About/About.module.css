@@ -1,0 +1,77 @@
+/* Future container styles */
+.container {
+  font-family: 'Inter', sans-serif;
+  font-size: 18px;
+  line-height: 1.6;
+  color: #1a1a1aba;
+  max-width: 1000px;
+  margin: 0 auto;
+  margin-top:  -5px;
+  padding: 40px;
+  text-align: center;
+  background-color: #f3f3f3;
+  border: 1px solid #c3c3c3;
+  border-radius: 5px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Future heading styles */
+  .container h1 {
+  font-size: 48px;
+  margin-top: 0;
+  margin-bottom: 30px;
+  color: #004c9e;
+  }
+  
+  .container h2 {
+  font-size: 32px;
+  margin-top: 40px;
+  margin-bottom: 25px;
+  color: #004c9e;
+  }
+  
+  /* Future paragraph styles */
+  .container p {
+  margin-top: 0;
+  margin-bottom: 25px;
+  }
+  
+  /* Future link styles */
+  .container a {
+  color: #0067b8;
+  text-decoration: none;
+  }
+  
+  .container a:hover {
+  text-decoration: underline;
+  }
+  
+  /* Future list styles */
+  .container ul {
+  list-style: disc;
+  margin-top: 0;
+  margin-bottom: 25px;
+  padding-left: 30px;
+  text-align: left;
+  }
+  
+  .container li {
+  margin-bottom: 10px;
+  }
+  
+  /* Future additional styles */
+  .container hr {
+  margin-top: 50px;
+  margin-bottom: 50px;
+  border: none;
+  border-top: 1px solid #d3d3d3;
+  }
+  
+  .container code {
+  font-family: 'Fira Code', monospace;
+  font-size: 90%;
+  background-color: #262626;
+  border-radius: 5px;
+  padding: 0.3em 0.6em;
+  color: #d3d3d3;
+  }

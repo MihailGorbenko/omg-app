@@ -2,7 +2,7 @@ import React, { Suspense, lazy } from 'react';
 import { createRoot } from 'react-dom/client';
 import { Provider } from 'react-redux';
 import { store } from './app/store/store';
-import App from './app/App';
+import App from './app/components/App';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { faB, faL, faS, faR, faUserAstronaut, faPersonWalkingLuggage, faRocket } from '@fortawesome/free-solid-svg-icons';

@@ -23,13 +23,13 @@ export const NavPanel: React.FC = () => {
 
   async function handleLogout() {
     await logout();
-    navigate("/auth/login");
   }
 
   return (
     <Navbar
       expand="md"
       variant="dark"
+      fixed="top"
       className={styles["nav-panel"]}
       collapseOnSelect
     >
@@ -74,12 +74,19 @@ export const NavPanel: React.FC = () => {
                 variant="outline-success"
                 onClick={() => handleLogout()}
               >
-                Logout
-                <FontAwesomeIcon
-                  icon={["fas", "person-walking-luggage"]}
-                  height={14}
-                  className={styles["logout-logo"]}
-                />
+                <Nav.Link
+                  as={NavLink}
+                  href="/auth"
+                  to="/auth"
+                  className={styles["no-link"]}>
+                  Logout
+                  <FontAwesomeIcon
+                    icon={["fas", "person-walking-luggage"]}
+                    height={14}
+                    className={styles["logout-logo"]}
+                  />
+                </Nav.Link>
+
               </Button>
             ) : (
               <Button

@@ -1,8 +1,8 @@
 @import '../variables.css';
 
 .nav-panel {
-    background-color: var(--app-color-primary);
-    box-shadow: 0 0 10px 5px rgba(0, 0, 0, 0.489);
+   background-color: var(--app-color-primary);
+   box-shadow: 0 0 10px 5px rgba(0, 0, 0, 0.489);
 }
 
 .nav-panel .nav-block {
@@ -12,40 +12,43 @@
 }
 
 .nav-panel .action-block {
-  flex-grow: 0;
+   flex-grow: 0;
 
 }
+
 .nav-panel .nav-logo {
-    margin-left: .3em;
-   
- }
+   margin-left: .3em;
 
- .nav-panel .logout-logo {
-    margin-left: .3em;
-   
- }
+}
 
- .nav-panel .login-out-button {
-    margin-right: .5em;
-    width: 100%;
-    padding: 8px 12px;
+.nav-panel .logout-logo {
+   margin-left: .3em;
+
+}
+
+.nav-panel .login-out-button {
+   margin-right: .5em;
+   width: 100%;
+   padding: 0 ;
 
 
-   
- }
 
- .nav-panel .no-link {
+}
+
+.nav-panel .no-link {
    text-decoration: none;
    color: rgba(255, 255, 255, 0.55);
    width: 100%;
-   padding: 0 0;
- 
- }
+   height: 100%;
+   padding: 8px 12px !important;
+   
 
- .nav-panel .no-link:hover {
-    color:rgba(255, 255, 255, 0.75);
- }
- 
+}
+
+.nav-panel .no-link:hover {
+   color: rgba(255, 255, 255, 0.75);
+}
+
 
 .nav-panel .nav-active-border:hover {
    border-left: 2px solid whitesmoke;
@@ -70,17 +73,15 @@
 
 
 @media (min-width:768px) {
-   .nav-panel .nav-active-border:hover
-    {
+   .nav-panel .nav-active-border:hover {
       border-left: none;
       border-bottom: 2px solid whitesmoke;
       transform: translateX(12px);
       transform: translateY(8px);
       padding-bottom: 6px;
    }
-   
-   .nav-panel .nav-active-border
-    {
+
+   .nav-panel .nav-active-border {
       transform: translateX(12px);
       transform: translateY(8px);
       padding-bottom: 16px;
@@ -90,7 +91,3 @@
 
 
 }
-
-
-
-

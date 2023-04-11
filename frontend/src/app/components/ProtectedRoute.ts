@@ -21,7 +21,7 @@ export const ProtectedRoute: FC<Props> = ({ children }) => {
                 state: { from: location }
             })  
         }
-    },[])
+    })
     
 
     return children
