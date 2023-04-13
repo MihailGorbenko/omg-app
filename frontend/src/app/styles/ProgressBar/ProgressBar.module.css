@@ -1,15 +1,17 @@
 .progress-bar {
-    height: 2px;
+    height: 4px;
     width: 100%;
     padding: 0;
     position: fixed;
+    z-index: 300;
+    margin-top: -1px;
     
 
 }
 
 .progress-slider {
-    background-color: #06c649bf;
-    height: 2px;
+    background-color: #06c649e9;
+    height: 3px;
     box-shadow: 0 0 2px 2px rgba(0, 0, 0, 0.212);
     transition: all linear 300ms;
 }

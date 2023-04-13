@@ -5,17 +5,18 @@ import { useNavigate } from "react-router"
 import { useAppDispatch } from "../store/store"
 
 export type AuthActionsProps = {
-    startTransition:Function
+    startTransition: Function,
+    ref: React.MutableRefObject<null>
 }
 
 
-const AuthActions: React.FC<AuthActionsProps> = ({startTransition}) => {
+const AuthActions: React.FC<AuthActionsProps> = ({ startTransition,ref }) => {
     const navigate = useNavigate()
     const dispatch = useAppDispatch()
 
     return (
-        <Container className={styles['auth-actions-container']}>
-            <Row style={{justifyContent:"center",gap:'2em'}}>
+        <Container ref={ref} className={styles['auth-actions-container']}>
+            <Row style={{ justifyContent: "center", gap: '2em' }}>
                 <Button
                     className={styles['login-button']}
                     variant="success"
@@ -28,7 +29,7 @@ const AuthActions: React.FC<AuthActionsProps> = ({startTransition}) => {
                     className={styles['register-button']}
                     variant="success"
                     onClick={() => {
-                         startTransition()
+                        startTransition()
                         navigate('/auth/register')
                     }}>Register</Button>
             </Row>

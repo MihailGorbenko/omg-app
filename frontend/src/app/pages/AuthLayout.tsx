@@ -14,19 +14,20 @@ const formAppearTime = 600
 export const AuthLayout: React.FC = () => {
 
   const [blockSlide, setBlockSlide] = useState(false)
-  const [showActions, setShowActions] = useState(true)
+  const [showActions, setShowActions] = useState(false)
   const leftBlock = useRef(null)
   const rightBlock = useRef(null)
   const formContainer = useRef(null)
+  const actionsBlock = useRef(null)
   const authState = useTypedSelector(selectAuth)
   const dispatch = useAppDispatch()
   const location = useLocation()
 
   useEffect(() => {
-    if (location.state?.fromForm) {
+    if (location.pathname === '/auth' ) {
       setShowActions(true)
     }
-
+    else setShowActions(false)
   })
 
 
@@ -46,10 +47,10 @@ export const AuthLayout: React.FC = () => {
           exit: styles['left-block-exit'],
           exitActive: styles['left-block-exit-active']
         }}
-        onEnter={() =>{
+        onEnter={() => {
           setShowActions(false)
           setTimeout(() => setBlockSlide(false), blocksReturnTime)
-        } }>
+        }}>
         <div ref={leftBlock} className={classNames(
           styles['left-block'],
         )}>
@@ -71,19 +72,19 @@ export const AuthLayout: React.FC = () => {
       </CSSTransition>
       {showActions &&
 
-          <CSSTransition
-            nodeRef={formContainer}
-            in={showActions}
-            timeout={formAppearTime}
-            classNames={{
-              enter: styles['form-enter'],
-              enterActive: styles['form-enter-active'],
-              exit: styles['form-exit'],
-              exitActive: styles['form-exit-active']
-            }}
-          >
-            <AuthActions  startTransition={startTransition} />
-          </CSSTransition>
+        <CSSTransition
+          nodeRef={actionsBlock}
+          in={showActions}
+          timeout={formAppearTime}
+          classNames={{
+            enter: styles['form-enter'],
+            enterActive: styles['form-enter-active'],
+            exit: styles['form-exit'],
+            exitActive: styles['form-exit-active']
+          }}
+        >
+          <AuthActions ref={actionsBlock} startTransition={startTransition} />
+        </CSSTransition>
 
       }
       <Container ref={formContainer} className={styles['form-container']}>

@@ -11,7 +11,7 @@ export type AuthState = {
     user: User | null,
     token: String | null,
     loading: boolean,
-    progress: number
+    progress: number,
 }
 
 export type User = {

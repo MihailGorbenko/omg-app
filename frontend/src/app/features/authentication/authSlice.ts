@@ -10,7 +10,7 @@ const initialState: AuthState = {
     token: token,
     isLogin: (user && token) ? true : false,
     loading: false,
-    progress: 0,
+    progress: 0
 }
 
 const authSlice = createSlice({
@@ -31,7 +31,7 @@ const authSlice = createSlice({
         },
         setProgress: (state, { payload: { progress } }: PayloadAction<{ progress: number }>) => {
             state.progress = progress
-        },
+        }
 
     }
 })

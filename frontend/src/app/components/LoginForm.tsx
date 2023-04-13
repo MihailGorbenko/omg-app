@@ -19,6 +19,7 @@ const LoginForm: React.FC = () => {
     useEffect(() => {
         if (isLogin) navigate('/')
     }, [isLogin])
+    
 
     return (
         <div className={styles.container}>
@@ -78,7 +79,7 @@ const LoginForm: React.FC = () => {
             </button>
             <button
                 onClick={async () => {
-                    navigate('/auth', { state: { fromForm: true } })
+                    navigate('/auth', { state: { fromForm: true  } })
                 }}
             >
                 Back
