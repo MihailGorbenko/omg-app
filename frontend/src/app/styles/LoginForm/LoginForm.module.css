@@ -1,0 +1,10 @@
+
+
+.container{
+    background-color: rgba(22, 172, 135, 0.895);
+    border-radius: 5px;
+    padding: 30px 15px;
+    color: whitesmoke;
+    width: fit-content;
+    box-shadow: 0 0 15px 12px rgba(0, 0, 0, 0.465);
+}

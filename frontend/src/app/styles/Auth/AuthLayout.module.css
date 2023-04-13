@@ -1,0 +1,143 @@
+/* layout globals */
+.layout {
+    display: flex;
+    flex-direction: row;
+    height: 100%;
+    width: 100%;
+    position: relative;
+}
+
+
+.auth-actions-container {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 100;
+    background-color: rgba(28, 110, 199, 0.616);
+    width: max-content;
+    padding: 15px 40px;
+    border-radius: 7px;
+    box-shadow: 0 0 15px 7px rgba(84, 82, 82, 0.5);
+    border: 1px solid rgba(0, 0, 255, 0.342);
+}
+
+
+.login-button {
+    width: 8em;
+    box-shadow: 0 0 4px 4px rgba(13, 11, 11, 0.209);
+    border: 1px solid rgb(21, 111, 60);
+}
+
+.register-button {
+    width: 8em;
+    box-shadow: 0 0 4px 4px rgba(13, 11, 11, 0.209);
+    border: 1px solid rgb(21, 111, 60);
+}
+
+/* left block */
+.left-block {
+    background-color: aqua;
+    background-image: url('../../../../public/index-background-left.png');
+    background-position: right;
+    background-size: cover;
+    background-repeat: no-repeat;
+    height: 100%;
+    width: 50%;
+}
+
+.left-block-enter {
+    transform: 0;
+    box-shadow: none;
+}
+
+.left-block-enter-active {
+    transition: transform 400ms;
+    transform: translateX(-50%);
+    box-shadow: 0 0 15px 12px rgba(0, 0, 0, 0.465);
+}
+
+.left-block-exit {
+    transform: translateX(-50%);
+    box-shadow: 0 0 15px 12px rgba(0, 0, 0, 0.465);
+    transition: transform 400ms;
+
+}
+
+.left-block-exit-active {
+    transform: translateX(0);
+    box-shadow: none;
+    transition: transform 300ms;
+}
+
+
+
+/* right block */
+
+.right-block {
+    background-color: blue;
+    background-image: url('../../../../public/index-background-right.png');
+    background-position: left;
+    background-size: cover;
+    background-repeat: no-repeat;
+    height: 100%;
+    width: 50%;
+}
+
+.right-block-enter {
+    transform: 0;
+    box-shadow: none;
+}
+
+.right-block-enter-active {
+    transition: transform 400ms;
+    transform: translateX(50%);
+    box-shadow: 0 0 15px 12px rgba(0, 0, 0, 0.465);
+}
+
+.right-block-exit {
+    transform: translateX(50%);
+    box-shadow: 0 0 15px 12px rgba(0, 0, 0, 0.465);
+    transition: transform 400ms;
+}
+
+.right-block-exit-active {
+    transform: translateX(0);
+    box-shadow: none;
+    transition: transform 300ms;
+}
+
+/* form container */
+
+
+.form-container {
+    position: absolute;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    top: 0;
+    z-index: 100;
+    margin: auto;
+    width: max-content;
+    height: max-content;
+  
+}
+
+.form-enter {
+    transform: scale(0);
+}
+
+.form-enter-active {
+    transition: transform 400ms;
+    transform: scale(1);
+}
+
+.form-exit {
+    transform: scale(1);
+    transition: transform 400ms;
+}
+
+.form-exit-active {
+    transform: scale(0);
+    transition: transform 400ms;
+}

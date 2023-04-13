@@ -1,7 +1,11 @@
 
 
 body {
-    background-color: rgba(94, 91, 91, 0.213) !important;
+    background-color: rgba(74, 74, 76, 0.533) !important;
+    background-image: url('../../../public/app_bg.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: repeat;
     width: auto;
     height: 100%;
     margin-top: 3.6em !important;

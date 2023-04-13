@@ -1,28 +1,27 @@
 import { useEffect, useState } from "react";
 import { useLazyGetUserQuery } from "../features/authentication/applicationApi";
-import { setAccessToken } from "../features/authentication/authSlice";
+import { setAccessToken} from "../features/authentication/authSlice";
 import { useLogin } from "../hooks/useLogin";
 import { useRegister } from "../hooks/useRegister";
 import { useAppDispatch } from "../store/store";
 import { AuthErrorResponse } from "../types/authSliceTypes";
 import { useNavigate } from "react-router";
 import { Loader } from "./Loader";
+import styles from '../styles/LoginForm/LoginForm.module.css'
 
 const LoginForm: React.FC = () => {
     const { login, logout, loading, isLogin } = useLogin();
     let [error, setError] = useState(null);
     let { register } = useRegister();
     const dispatch = useAppDispatch();
-    const [getUser] = useLazyGetUserQuery();
     const navigate = useNavigate()
 
     useEffect(() => {
         if (isLogin) navigate('/')
     }, [isLogin])
 
-
     return (
-        <div>
+        <div className={styles.container}>
             {loading && <Loader />}
             <h1>{isLogin ? `Logged in` : "Logged out"}</h1>
             <h1>{error ? JSON.stringify(error) : ""}</h1>
@@ -36,9 +35,9 @@ const LoginForm: React.FC = () => {
                     })
                         .then((status) => {
                             console.log(status)
-                           
+
                         })
-                        
+
                 }}
             >
                 Login
@@ -79,19 +78,10 @@ const LoginForm: React.FC = () => {
             </button>
             <button
                 onClick={async () => {
-                    dispatch(
-                        setAccessToken({
-                            token:
-                                "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzZmU2NzE4NTk4MGVhMTE4NTZhYjg4YSIsImlhdCI6MTY3OTI0MDA5MSwiZXhwIjoxNjc5MjQwNjkxfQ.ycs68kmY_jp2IhUZ_1OEmBt4-z_8q31gHPVfYuxeKOs",
-                        })
-                    );
-                    getUser()
-                        .unwrap()
-                        .then((id) => console.log(id))
-                        .catch((err) => console.log(err));
+                    navigate('/auth', { state: { fromForm: true } })
                 }}
             >
-                expire token
+                Back
             </button>
         </div>
     )
