@@ -1,39 +1,34 @@
-import { Outlet, useLocation, useNavigate } from "react-router";
+import { useLocation, useOutlet } from "react-router";
 import styles from '../styles/Auth/AuthLayout.module.css'
-import { useEffect, useRef, useState } from "react";
+import { createRef, useEffect, useRef, useState } from "react";
 import classNames from "classnames";
 import { Container } from "react-bootstrap";
-import AuthActions from "../components/AuthActions";
-import { CSSTransition } from "react-transition-group";
-import { useAppDispatch, useTypedSelector } from "../store/store";
-import { selectAuth } from "../features/authentication/authSlice";
+import { CSSTransition, SwitchTransition } from "react-transition-group";
 
-const blocksReturnTime = 600
-const formAppearTime = 600
+const blocksReturnTime = 500
+const formAppearTime = 500
 
 export const AuthLayout: React.FC = () => {
 
   const [blockSlide, setBlockSlide] = useState(false)
-  const [showActions, setShowActions] = useState(false)
   const leftBlock = useRef(null)
   const rightBlock = useRef(null)
   const formContainer = useRef(null)
-  const actionsBlock = useRef(null)
-  const authState = useTypedSelector(selectAuth)
-  const dispatch = useAppDispatch()
+  const outlet = useOutlet()
   const location = useLocation()
 
+  const routesRefs = new Map()
+  routesRefs
+    .set('/login', createRef())
+    .set('/register', createRef())
+    .set('/auth', createRef())
+
   useEffect(() => {
-    if (location.pathname === '/auth' ) {
-      setShowActions(true)
-    }
-    else setShowActions(false)
-  })
+    if (routesRefs.get(location.state?.from.pathname))
+       setBlockSlide(true)
 
+  }, [location.pathname])
 
-  const startTransition = (show: boolean) => {
-    setBlockSlide(true)
-  }
 
   return (
     <div className={styles.layout}>
@@ -48,7 +43,6 @@ export const AuthLayout: React.FC = () => {
           exitActive: styles['left-block-exit-active']
         }}
         onEnter={() => {
-          setShowActions(false)
           setTimeout(() => setBlockSlide(false), blocksReturnTime)
         }}>
         <div ref={leftBlock} className={classNames(
@@ -70,40 +64,28 @@ export const AuthLayout: React.FC = () => {
           styles['right-block'],
         )}></div>
       </CSSTransition>
-      {showActions &&
-
-        <CSSTransition
-          nodeRef={actionsBlock}
-          in={showActions}
-          timeout={formAppearTime}
-          classNames={{
-            enter: styles['form-enter'],
-            enterActive: styles['form-enter-active'],
-            exit: styles['form-exit'],
-            exitActive: styles['form-exit-active']
-          }}
-        >
-          <AuthActions ref={actionsBlock} startTransition={startTransition} />
-        </CSSTransition>
-
-      }
       <Container ref={formContainer} className={styles['form-container']}>
-        <CSSTransition
-          nodeRef={formContainer}
-          in={!showActions}
-          timeout={formAppearTime}
-          classNames={{
-            enter: styles['form-enter'],
-            enterActive: styles['form-enter-active'],
-            exit: styles['form-exit'],
-            exitActive: styles['form-exit-active']
-          }}
-        >
-          <Outlet />
-        </CSSTransition>
+        <SwitchTransition>
+          <CSSTransition
+            key={location.pathname}
+            nodeRef={routesRefs.get(location.pathname)}
+            timeout={formAppearTime}
+            unmountOnExit
+            classNames={{
+              enter: styles['form-enter'],
+              enterActive: styles['form-enter-active'],
+              exit: styles['form-exit'],
+              exitActive: styles['form-exit-active']
+            }}
+          >
+            {(state) => (
+              <div ref={routesRefs.get(location.pathname)}>
+                {outlet}
+              </div>
+            )}
+          </CSSTransition>
+        </SwitchTransition>
       </Container>
-
-
     </div>
   );
 };

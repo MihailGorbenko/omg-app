@@ -17,8 +17,8 @@ import { selectAuth } from "../features/authentication/authSlice";
 
 export const NavPanel: React.FC = () => {
   const { isLogin, logout } = useLogin();
-  const navigate = useNavigate();
-  const path = useLocation().pathname;
+  const location = useLocation()
+  const path = location.pathname;
   const authUser = useTypedSelector(selectAuth)
 
   async function handleLogout() {
@@ -101,8 +101,9 @@ export const NavPanel: React.FC = () => {
               >
                 <Nav.Link
                   as={NavLink}
-                  href="/auth/login"
-                  to="/auth/login"
+                  href="/login"
+                  to="/login"
+                  state={{ from: location }}
                   className={styles["no-link"]}>
                   Login
                   <FontAwesomeIcon

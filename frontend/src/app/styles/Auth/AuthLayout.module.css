@@ -52,15 +52,15 @@
 }
 
 .left-block-enter-active {
-    transition: transform 400ms;
+    transition: transform 300ms;
     transform: translateX(-50%);
-    box-shadow: 0 0 15px 12px rgba(0, 0, 0, 0.465);
+    box-shadow: 0 0 15px 12px rgba(0, 0, 0, 0.879);
 }
 
 .left-block-exit {
     transform: translateX(-50%);
-    box-shadow: 0 0 15px 12px rgba(0, 0, 0, 0.465);
-    transition: transform 400ms;
+    box-shadow: 0 0 15px 12px rgba(0, 0, 0, 0.879);
+    transition: transform 300ms;
 
 }
 
@@ -75,20 +75,20 @@
         transform: 0;
         box-shadow: none;
     }
-    
+
     .left-block-enter-active {
-        transition: transform 400ms;
+        transition: transform 300ms;
         transform: translateX(-80%);
-        box-shadow: 0 0 15px 12px rgba(0, 0, 0, 0.465);
+        box-shadow: 0 0 15px 12px rgba(0, 0, 0, 0.879);
     }
-    
+
     .left-block-exit {
         transform: translateX(-80%);
-        box-shadow: 0 0 15px 12px rgba(0, 0, 0, 0.465);
-        transition: transform 400ms;
-    
+        box-shadow: 0 0 15px 12px rgba(0, 0, 0, 0.879);
+        transition: transform 300ms;
+
     }
-    
+
     .left-block-exit-active {
         transform: translateX(0);
         box-shadow: none;
@@ -116,15 +116,15 @@
 }
 
 .right-block-enter-active {
-    transition: transform 400ms;
+    transition: transform 300ms;
     transform: translateX(50%);
-    box-shadow: 0 0 15px 12px rgba(0, 0, 0, 0.465);
+    box-shadow: 0 0 15px 12px rgba(0, 0, 0, 0.879);
 }
 
 .right-block-exit {
     transform: translateX(50%);
-    box-shadow: 0 0 15px 12px rgba(0, 0, 0, 0.465);
-    transition: transform 400ms;
+    box-shadow: 0 0 15px 12px rgba(0, 0, 0, 0.879);
+    transition: transform 300ms;
 }
 
 .right-block-exit-active {
@@ -138,19 +138,19 @@
         transform: 0;
         box-shadow: none;
     }
-    
+
     .right-block-enter-active {
-        transition: transform 400ms;
+        transition: transform 300ms;
         transform: translateX(80%);
-        box-shadow: 0 0 15px 12px rgba(0, 0, 0, 0.465);
+        box-shadow: 0 0 15px 12px rgba(0, 0, 0, 0.879);
     }
-    
+
     .right-block-exit {
         transform: translateX(80%);
-        box-shadow: 0 0 15px 12px rgba(0, 0, 0, 0.465);
-        transition: transform 400ms;
+        box-shadow: 0 0 15px 12px rgba(0, 0, 0, 0.879);
+        transition: transform 300ms;
     }
-    
+
     .right-block-exit-active {
         transform: translateX(0);
         box-shadow: none;
@@ -171,24 +171,31 @@
     margin: auto;
     width: max-content;
     height: max-content;
-  
+
 }
 
+
 .form-enter {
-    transform: scale(0);
+    opacity: 0;
+    transform: scale(.3);
 }
 
 .form-enter-active {
-    transition: transform 400ms;
+    opacity: 1;
     transform: scale(1);
+    transition: all 300ms;
+
 }
 
 .form-exit {
-    transform: scale(1);
-    transition: transform 400ms;
+    opacity: 1;
+  transform: scale(1);
+   
 }
 
 .form-exit-active {
     transform: scale(0);
-    transition: transform 400ms;
+    transition: all 300ms;
+    opacity: 0;
+   
 }

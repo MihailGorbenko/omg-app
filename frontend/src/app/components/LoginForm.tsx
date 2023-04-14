@@ -5,7 +5,7 @@ import { useLogin } from "../hooks/useLogin";
 import { useRegister } from "../hooks/useRegister";
 import { useAppDispatch } from "../store/store";
 import { AuthErrorResponse } from "../types/authSliceTypes";
-import { useNavigate } from "react-router";
+import { useLocation, useNavigate } from "react-router";
 import { Loader } from "./Loader";
 import styles from '../styles/LoginForm/LoginForm.module.css'
 
@@ -13,7 +13,7 @@ const LoginForm: React.FC = () => {
     const { login, logout, loading, isLogin } = useLogin();
     let [error, setError] = useState(null);
     let { register } = useRegister();
-    const dispatch = useAppDispatch();
+    const location = useLocation()
     const navigate = useNavigate()
 
     useEffect(() => {
@@ -79,7 +79,7 @@ const LoginForm: React.FC = () => {
             </button>
             <button
                 onClick={async () => {
-                    navigate('/auth', { state: { fromForm: true  } })
+                    navigate('/auth', { state: { from:location  } })
                 }}
             >
                 Back

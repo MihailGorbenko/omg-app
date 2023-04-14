@@ -1,36 +1,28 @@
 import { Container, Row, Button } from "react-bootstrap"
-
 import styles from '../styles/Auth/AuthLayout.module.css'
-import { useNavigate } from "react-router"
-import { useAppDispatch } from "../store/store"
-
-export type AuthActionsProps = {
-    startTransition: Function,
-    ref: React.MutableRefObject<null>
-}
+import { useLocation, useNavigate } from "react-router"
 
 
-const AuthActions: React.FC<AuthActionsProps> = ({ startTransition,ref }) => {
+
+const AuthActions: React.FC = () => {
     const navigate = useNavigate()
-    const dispatch = useAppDispatch()
+    const location = useLocation()
 
     return (
-        <Container ref={ref} className={styles['auth-actions-container']}>
+        <Container className={styles['auth-actions-container']}>
             <Row style={{ justifyContent: "center", gap: '2em' }}>
                 <Button
                     className={styles['login-button']}
                     variant="success"
                     onClick={() => {
-                        startTransition()
-                        navigate('/auth/login')
+                        navigate('/login', { state: { from:location } })
                     }
                     }>Login</Button>
                 <Button
                     className={styles['register-button']}
                     variant="success"
                     onClick={() => {
-                        startTransition()
-                        navigate('/auth/register')
+                        navigate('/register', { state: { from:location } })
                     }}>Register</Button>
             </Row>
         </Container>

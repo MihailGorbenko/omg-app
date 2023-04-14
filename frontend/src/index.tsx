@@ -16,12 +16,13 @@ import Index from './app/pages/Index';
 library.add(faB, faL, faS, faR, faUserAstronaut, faPersonWalkingLuggage, faRocket)
 
 const Home = lazy(() => import("./app/pages/Home"))
-const About = lazy(() => import( './app/pages/About'))
-const NotFound= lazy(() => import('./app/pages/NotFound'))
+const About = lazy(() => import('./app/pages/About'))
+const NotFound = lazy(() => import('./app/pages/NotFound'))
 const Feed = lazy(() => import('./app/components/Feed'))
 const LoginForm = lazy(() => import('./app/components/LoginForm'))
 const RegisterForm = lazy(() => import('./app/components/RegisterForm'))
 const ResetPassword = lazy(() => import('./app/pages/ResetPassword'))
+const AuthActions = lazy(() => import('./app/components/AuthActions'))
 
 const container = document.getElementById('root')!;
 const root = createRoot(container);
@@ -42,8 +43,13 @@ const router = createBrowserRouter(
           </Suspense>} />
       </Route>
       <Route
-        path='auth'
         element={<AuthLayout />}>
+        <Route path='auth' element={
+          <Suspense>
+            <AuthActions />
+          </Suspense>
+        }>
+        </Route>
         <Route path='login' element={
           <Suspense>
             <LoginForm />
