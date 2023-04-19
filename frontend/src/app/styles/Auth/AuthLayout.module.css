@@ -14,9 +14,9 @@
     left: 50%;
     transform: translate(-50%, -50%);
     z-index: 100;
-    background-color: rgba(28, 110, 199, 0.616);
+    background-color: rgba(28, 111, 199, 0.703);
     width: max-content;
-    padding: 15px 40px;
+    padding: 20px 40px;
     border-radius: 7px;
     box-shadow: 0 0 15px 7px rgba(84, 82, 82, 0.5);
     border: 1px solid rgba(0, 0, 255, 0.342);
@@ -169,7 +169,6 @@
     top: 0;
     z-index: 100;
     margin: auto;
-    width: max-content;
     height: max-content;
 
 }

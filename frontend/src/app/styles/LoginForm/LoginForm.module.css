@@ -1,10 +1,31 @@
-
-
-.container{
-    background-color: rgba(22, 172, 135, 0.895);
+.container {
+    background-color: rgba(22, 172, 135, 0.687);
     border-radius: 5px;
     padding: 30px 15px;
     color: whitesmoke;
-    width: fit-content;
     box-shadow: 0 0 15px 12px rgba(0, 0, 0, 0.465);
+}
+
+.input {
+    box-shadow: 0 0 6px 4px rgba(53, 50, 50, 0.258);
+}
+
+.button {
+    box-shadow: 0 0 6px 4px rgba(53, 50, 50, 0.258);
+    width:max-content;
+    margin-right:12px;
+}
+
+.password-icon {
+    position: absolute;
+    top: 1em;
+    right: 1em;
+    color: rgba(10, 129, 172, 0.975);
+}
+
+.password-icon-invalid {
+    position: absolute;
+    top: 1em;
+    right: 2em;
+    color: rgba(10, 129, 172, 0.975);
 }

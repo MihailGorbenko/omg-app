@@ -4,6 +4,7 @@ import { ProgressBar } from "./ProgressBar";
 import { useTypedSelector } from "../store/store";
 import { selectAuth } from "../features/authentication/authSlice";
 import '../styles/App.css'
+import { GlobalLoader } from "./GlobalLoader";
 
 
 export default function App() {
@@ -16,6 +17,7 @@ export default function App() {
       <NavPanel />
       {(authState.progress > 0 && authState.progress < 100)
         && <ProgressBar progress={authState.progress} />}
+      {authState.loading && <GlobalLoader />}
       <Outlet />
     </>
 

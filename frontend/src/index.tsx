@@ -5,15 +5,25 @@ import { store } from './app/store/store';
 import App from './app/components/App';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { library } from '@fortawesome/fontawesome-svg-core';
-import { faB, faL, faS, faR, faUserAstronaut, faPersonWalkingLuggage, faRocket } from '@fortawesome/free-solid-svg-icons';
+import {
+  faB,
+  faL,
+  faS,
+  faR,
+  faUserAstronaut,
+  faPersonWalkingLuggage,
+  faRocket,
+  faEye,
+  faEyeSlash
+} from '@fortawesome/free-solid-svg-icons';
 import { Route, RouterProvider, createBrowserRouter, createRoutesFromElements } from 'react-router-dom';
 import { GlobalError } from './app/pages/GlobalError';
 import { AuthLayout } from './app/pages/AuthLayout';
 import { ProtectedRoute } from './app/components/ProtectedRoute';
-import { LoadingScreen } from './app/components/LoadingScreeen';
+import { GlobalLoader } from './app/components/GlobalLoader';
 import Index from './app/pages/Index';
 
-library.add(faB, faL, faS, faR, faUserAstronaut, faPersonWalkingLuggage, faRocket)
+library.add(faB, faL, faS, faR, faUserAstronaut, faPersonWalkingLuggage, faRocket, faEye, faEyeSlash)
 
 const Home = lazy(() => import("./app/pages/Home"))
 const About = lazy(() => import('./app/pages/About'))
@@ -33,7 +43,7 @@ const router = createBrowserRouter(
       <Route
         element={
           <ProtectedRoute>
-            <Suspense fallback={<LoadingScreen />}>
+            <Suspense fallback={<GlobalLoader />}>
               <Home />
             </Suspense>
           </ProtectedRoute>}>

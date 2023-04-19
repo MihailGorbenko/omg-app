@@ -2,7 +2,7 @@ import { useLocation, useOutlet } from "react-router";
 import styles from '../styles/Auth/AuthLayout.module.css'
 import { createRef, useEffect, useRef, useState } from "react";
 import classNames from "classnames";
-import { Container } from "react-bootstrap";
+import { Container, Row, Col } from "react-bootstrap";
 import { CSSTransition, SwitchTransition } from "react-transition-group";
 
 const blocksReturnTime = 500
@@ -25,7 +25,7 @@ export const AuthLayout: React.FC = () => {
 
   useEffect(() => {
     if (routesRefs.get(location.state?.from.pathname))
-       setBlockSlide(true)
+      setBlockSlide(true)
 
   }, [location.pathname])
 
@@ -79,9 +79,11 @@ export const AuthLayout: React.FC = () => {
             }}
           >
             {(state) => (
-              <div ref={routesRefs.get(location.pathname)}>
-                {outlet}
-              </div>
+              <Row ref={routesRefs.get(location.pathname)} className='justify-content-center'>
+                <Col md={6} lg={5} xl={4} >
+                  {outlet}
+                </Col>
+              </Row>
             )}
           </CSSTransition>
         </SwitchTransition>
