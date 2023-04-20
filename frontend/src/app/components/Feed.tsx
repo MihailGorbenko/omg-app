@@ -3,7 +3,7 @@ import { Link } from "react-router-dom"
 
 const Feed:React.FC = () => {
     return (
-         <h1>Feed</h1>
+         <h1 style={{color:'white'}}>Feed</h1>
     )
 }
 

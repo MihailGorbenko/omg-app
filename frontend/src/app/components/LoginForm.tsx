@@ -1,22 +1,43 @@
 import { useEffect, useState } from "react";
-import { useLazyGetUserQuery } from "../features/authentication/applicationApi";
-import { setAccessToken } from "../features/authentication/authSlice";
 import { useLogin } from "../hooks/useLogin";
 import { useRegister } from "../hooks/useRegister";
 import { useAppDispatch } from "../store/store";
 import { AuthErrorResponse } from "../types/authSliceTypes";
 import { useLocation, useNavigate } from "react-router";
-import { Loader } from "./Loader";
-import styles from '../styles/LoginForm/LoginForm.module.css'
+import styles from '../styles/Form/AuthForm.module.css'
 import { Button, Row } from "react-bootstrap";
-import { Form, FloatingLabel, Container } from "react-bootstrap";
+import { Form, FloatingLabel } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { Formik, useFormikContext } from 'formik'
+import * as yup from 'yup'
+
+
+const schema = yup.object().shape({
+    email: yup
+        .string()
+        .email('Invalid email address!')
+        .required('Email required!'),
+    password: yup
+        .string()
+        .trim()
+        .max(16, 'Must be max 16 characters! ')
+        .min(8, 'Must be min 8 characters! ')
+        .required('Password required!')
+})
+
+const initialValues = {
+    email: '',
+    password: ''
+}
+
 
 
 const LoginForm: React.FC = () => {
     const { login, logout, loading, isLogin } = useLogin();
     const location = useLocation()
     const navigate = useNavigate()
+    const [emailError, setEmailError] = useState(false)
+    const [passwordError, setPasswordError] = useState(false)
     const [passwordVisible, setPasswordVisible] = useState(false)
 
     useEffect(() => {
@@ -24,58 +45,132 @@ const LoginForm: React.FC = () => {
     }, [isLogin])
 
 
+    function clearErrors() {
+        setEmailError(false)
+        setPasswordError(false)
+    }
+
+    async function handleFormSubmit(values: typeof initialValues) {
+        clearErrors()
+        await login({
+            email: values.email,
+            password: values.password
+        })
+            .then(res => { })
+            .catch(err => {
+                if ((err as AuthErrorResponse).predicate === 'NOT_EXIST') {
+                    setEmailError(true)
+                }
+                else if ((err as AuthErrorResponse).predicate === 'INCORRECT') {
+                    setEmailError(true)
+                }
+                else if ((err as AuthErrorResponse).predicate === 'PASS_INCORRECT') {
+                    setPasswordError(true)
+                }
+
+            })
+
+    }
+
     return (
 
         <div className={styles.container}>
-            <Form>
-                <Form.Group className="mb-3">
-                    <FloatingLabel
-                        controlId="emailInput"
-                        label="Email"
-                        className="mb-3"
-                        style={{ color: 'gray', }}
-                    >
-                        <Form.Control type="email" placeholder="name@example.com" className={styles.input} />
-                    </FloatingLabel>
-                </Form.Group>
+            <h1 className="mb-3">Login</h1>
+            <Formik
+                initialValues={initialValues}
+                onSubmit={(values) => handleFormSubmit(values)}
+                validationSchema={schema}>
+                {
+                    ({
+                        handleSubmit,
+                        handleChange,
+                        handleBlur,
+                        values,
+                        touched,
+                        isValid,
+                        errors
+                    }) => (
+                        <Form noValidate onSubmit={handleSubmit}>
+                            <Form.Group className="mb-3">
+                                <FloatingLabel
+                                    controlId="emailInput"
+                                    label="Email"
+                                    className={styles.label}>
+                                    <Form.Control
+                                        type="email"
+                                        placeholder="name@example.com"
+                                        className={styles.input}
+                                        name="email"
+                                        value={values.email}
+                                        onChange={(e) => {
+                                            clearErrors()
+                                            handleChange(e)
+                                        }}
+                                        onBlur={handleBlur}
+                                        isInvalid={(touched.email && !!errors.email) || emailError}
+                                        isValid={touched.email && !errors.email && !emailError} />
+                                    <Form.Control.Feedback type="invalid">{
+                                        emailError
+                                            ? 'User with such email not registred!'
+                                            : errors.email
+                                    }
+                                    </Form.Control.Feedback>
+                                    <Form.Control.Feedback >Looks good!</Form.Control.Feedback>
+                                </FloatingLabel>
 
-                <Form.Group className="mb-3" controlId="formBasicPassword">
-                    <FloatingLabel
-                        controlId="passwordInput"
-                        label="Password"
-                        className="mb-3"
-                        style={{ color: 'gray', }}>
-                        <Form.Control
-                            type={passwordVisible ? 'text' : 'password'}
-                            placeholder="password"
-                            />
-                        <div onClick={() => { setPasswordVisible(!passwordVisible) }}
-                            className={styles['password-icon']}>
-                            {passwordVisible
-                                ?
-                                <FontAwesomeIcon icon={["fas", "eye"]}  />
-                                :
-                                <FontAwesomeIcon icon={["fas", "eye-slash"]}  />}
-                        </div>
-                    </FloatingLabel>
-                </Form.Group>
-                <Row style={{ justifyContent: 'end' }}>
-                    <Button 
-                    variant="primary" 
-                    className={styles.button}
-                    onClick={async () => {
-                        navigate('/auth', { state: { from:location  } })
-                    }}
-                    >
-                        Back
-                    </Button>
-                    <Button variant="primary" type="submit" className={styles.button}>
-                        Login
-                    </Button>
-                </Row>
+                            </Form.Group>
+                            <Form.Group className="mb-3">
+                                <FloatingLabel
+                                    controlId="passwordInput"
+                                    label="Password"
+                                    className={styles.label}>
+                                    <Form.Control
+                                        type={passwordVisible ? 'text' : 'password'}
+                                        placeholder="password"
+                                        name="password"
+                                        onChange={(e) => {
+                                            clearErrors()
+                                            handleChange(e)
+                                        }}
+                                        onBlur={handleBlur}
+                                        isValid={touched.password && !errors.password && !passwordError}
+                                        isInvalid={(touched.password && !!errors.password) || passwordError}
+                                    />
+                                    <div onClick={() => { setPasswordVisible(!passwordVisible) }}
+                                        className={styles['password-icon']}>
+                                        {passwordVisible
+                                            ?
+                                            <FontAwesomeIcon icon={["fas", "eye"]} />
+                                            :
+                                            <FontAwesomeIcon icon={["fas", "eye-slash"]} />}
+                                    </div>
+                                    <Form.Control.Feedback type="invalid">{
+                                        passwordError
+                                            ? 'Invalid password!'
+                                            : errors.password
+                                    }
+                                    </Form.Control.Feedback>
+                                    <Form.Control.Feedback >Looks good!</Form.Control.Feedback>
+                                </FloatingLabel>
+                            </Form.Group>
+                            <Row style={{ justifyContent: 'end' }}>
+                                <Button
+                                    variant="primary"
+                                    className={styles.button}
+                                    onClick={async () => {
+                                        navigate('/auth', { state: { from: location } })
+                                    }}
+                                >
+                                    Back
+                                </Button>
+                                <Button variant="primary" type="submit" className={styles.button}>
+                                    Login
+                                </Button>
 
-            </Form>
-
+                            </Row>
+                        </Form>
+                    )}
+            </Formik>
         </div>
     )
 }

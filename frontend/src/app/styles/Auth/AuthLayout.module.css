@@ -10,7 +10,7 @@
 
 .auth-actions-container {
     position: absolute;
-    top: 50%;
+    top: 45vh;
     left: 50%;
     transform: translate(-50%, -50%);
     z-index: 100;
@@ -37,7 +37,7 @@
 
 /* left block */
 .left-block {
-    background-color: aqua;
+    background-color: rgba(0, 255, 255, 0.215);
     background-image: url('../../../../public/index-background-left.png');
     background-position: right;
     background-size: cover;
@@ -101,7 +101,7 @@
 /* right block */
 
 .right-block {
-    background-color: blue;
+    background-color: rgba(0, 0, 255, 0.219);
     background-image: url('../../../../public/index-background-right.png');
     background-position: left;
     background-size: cover;
@@ -165,8 +165,7 @@
     position: absolute;
     right: 0;
     left: 0;
-    bottom: 0;
-    top: 0;
+    top: 5rem;
     z-index: 100;
     margin: auto;
     height: max-content;

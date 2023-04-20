@@ -1,5 +1,5 @@
 .container {
-    background-color: rgba(22, 172, 135, 0.687);
+    background-color: rgba(22, 172, 135, 0.912);
     border-radius: 5px;
     padding: 30px 15px;
     color: whitesmoke;
@@ -18,8 +18,8 @@
 
 .password-icon {
     position: absolute;
-    top: 1em;
-    right: 1em;
+    top: 1.05em;
+    right: 2em;
     color: rgba(10, 129, 172, 0.975);
 }
 
@@ -28,4 +28,9 @@
     top: 1em;
     right: 2em;
     color: rgba(10, 129, 172, 0.975);
+}
+
+.label {
+    color: gray;
+    margin-bottom: 1em;
 }

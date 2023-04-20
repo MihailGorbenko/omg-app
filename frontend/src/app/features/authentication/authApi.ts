@@ -7,7 +7,7 @@ const staggeredRetry = retry(fetchBaseQuery({
     baseUrl: process.env.REACT_APP_AUTH_URL,
     credentials: 'include'
 }),
-    { maxRetries: 5 }
+    { maxRetries: 2 }
 )
 
 export const authApi = createApi({

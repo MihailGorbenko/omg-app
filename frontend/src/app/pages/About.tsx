@@ -20,9 +20,9 @@ const About: React.FC = () => {
                 <li>User registration with secure password hashing and validation.</li>
                 <li>User login with token-based authentication for secure access control.</li>
                 <li>Password reset using user email with secure email handling and validation.</li>
-                <li>Profile picture selection with image upload and processing, including thumbnail creation.</li>
-                <li>Post creation in Feed with image upload and processing.</li>
-                <li>Post liking with real-time updates and notifications.</li>
+                <li>Profile picture selection with image upload and processing, including thumbnail creation (<b>Not implemented</b>).</li>
+                <li>Post creation in Feed with image upload (<b>Not implemented</b>).</li>
+                <li>Post liking with real-time updates and notifications (<b>Not implemented</b>).</li>
             </ul>
             <p>To access the project on GitHub, please visit <a href="https://github.com/MihailGorbenko/omg-app">https://github.com/MihailGorbenko/omg-app</a>.</p>
             </div>
