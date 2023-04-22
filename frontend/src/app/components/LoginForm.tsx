@@ -5,7 +5,7 @@ import { useAppDispatch } from "../store/store";
 import { AuthErrorResponse } from "../types/authSliceTypes";
 import { useLocation, useNavigate } from "react-router";
 import styles from '../styles/Form/AuthForm.module.css'
-import { Button, Row } from "react-bootstrap";
+import { Button, Row, Toast, ToastContainer } from "react-bootstrap";
 import { Form, FloatingLabel } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Formik } from 'formik'
@@ -45,6 +45,9 @@ const LoginForm: React.FC = () => {
     const [resetPassword] = useResetPasswordMutation()
     const loader = useLoader()
     const progress = useProgress()
+    const [showToast, setShowToast] = useState(false)
+    const [toastText, setToastText] = useState('')
+    ///TODO write useToast hook
 
     useEffect(() => {
         if (isLogin) navigate('/')
@@ -62,14 +65,16 @@ const LoginForm: React.FC = () => {
         await resetPassword({ email })
             .unwrap()
             .then(resp => {
-                //show success toast
-                console.log(resp)
+                setToastText((resp as {message:string}).message)
+                setShowToast(true)
                 progress.done()
                 loader.off()
             })
             .catch(err => {
-                //show error toast
-                console.log(err)
+                if((err as AuthErrorResponse).predicate === 'INCORRECT'){
+                    setToastText('Incorrect email')
+                    setShowToast(true)
+                }
                 progress.off()
                 loader.off()
             })
@@ -100,6 +105,7 @@ const LoginForm: React.FC = () => {
     return (
 
         <div className={styles.container}>
+
             <h1 className="mb-3">Login</h1>
             <Formik
                 initialValues={initialValues}
@@ -195,6 +201,7 @@ const LoginForm: React.FC = () => {
                                     Login
                                 </Button>
                             </Row>
+                          {showToast && <h1>{toastText}</h1>}
                         </Form>
                     )}
             </Formik>
