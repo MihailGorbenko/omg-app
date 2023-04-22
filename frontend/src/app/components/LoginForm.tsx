@@ -8,8 +8,11 @@ import styles from '../styles/Form/AuthForm.module.css'
 import { Button, Row } from "react-bootstrap";
 import { Form, FloatingLabel } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { Formik, useFormikContext } from 'formik'
+import { Formik } from 'formik'
 import * as yup from 'yup'
+import { useResetPasswordMutation } from "../features/authentication/authApi";
+import useLoader from "../hooks/useLoader";
+import useProgress from "../hooks/useProgress";
 
 
 const schema = yup.object().shape({
@@ -33,12 +36,15 @@ const initialValues = {
 
 
 const LoginForm: React.FC = () => {
-    const { login, logout, loading, isLogin } = useLogin();
+    const { login, isLogin } = useLogin();
     const location = useLocation()
     const navigate = useNavigate()
     const [emailError, setEmailError] = useState(false)
     const [passwordError, setPasswordError] = useState(false)
     const [passwordVisible, setPasswordVisible] = useState(false)
+    const [resetPassword] = useResetPasswordMutation()
+    const loader = useLoader()
+    const progress = useProgress()
 
     useEffect(() => {
         if (isLogin) navigate('/')
@@ -48,6 +54,25 @@ const LoginForm: React.FC = () => {
     function clearErrors() {
         setEmailError(false)
         setPasswordError(false)
+    }
+
+    async function handleResetLink(email: string) {
+        loader.on()
+        progress.set(15)
+        await resetPassword({ email })
+            .unwrap()
+            .then(resp => {
+                //show success toast
+                console.log(resp)
+                progress.done()
+                loader.off()
+            })
+            .catch(err => {
+                //show error toast
+                console.log(err)
+                progress.off()
+                loader.off()
+            })
     }
 
     async function handleFormSubmit(values: typeof initialValues) {
@@ -153,6 +178,9 @@ const LoginForm: React.FC = () => {
                                     <Form.Control.Feedback >Looks good!</Form.Control.Feedback>
                                 </FloatingLabel>
                             </Form.Group>
+                            <div className={styles['reset-link']}
+                                onClick={() => handleResetLink(values.email)}>Forgot password?</div>
+
                             <Row style={{ justifyContent: 'end' }}>
                                 <Button
                                     variant="primary"
@@ -166,7 +194,6 @@ const LoginForm: React.FC = () => {
                                 <Button variant="primary" type="submit" className={styles.button}>
                                     Login
                                 </Button>
-
                             </Row>
                         </Form>
                     )}

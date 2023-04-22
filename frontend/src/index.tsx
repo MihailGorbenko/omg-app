@@ -41,12 +41,11 @@ const router = createBrowserRouter(
     <Route path='/' element={<App />} errorElement={<GlobalError />} >
       <Route index element={<Index />} />
       <Route
+        path='home'
         element={
-          <ProtectedRoute>
             <Suspense fallback={<GlobalLoader />}>
               <Home />
-            </Suspense>
-          </ProtectedRoute>}>
+            </Suspense>}>
         <Route path='feed' element={
           <Suspense>
             <Feed />

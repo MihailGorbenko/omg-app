@@ -6,7 +6,7 @@ import { log } from "console";
 
 
 interface Props {
-    children: JSX.Element;
+    children: JSX.Element | null;
 }
 export const ProtectedRoute: FC<Props> = ({ children }) => {
 
@@ -24,6 +24,6 @@ export const ProtectedRoute: FC<Props> = ({ children }) => {
     })
     
 
-    return children
-
+    return authState.isLogin ? children : null
+ 
 }

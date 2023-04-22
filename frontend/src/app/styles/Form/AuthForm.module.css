@@ -34,3 +34,17 @@
     color: gray;
     margin-bottom: 1em;
 }
+
+.reset-link{
+    color: rgba(0, 0, 255, 0.507);
+    text-decoration: underline;
+    font-weight: 500;
+    margin-left: .5em;
+    cursor: pointer;
+    
+}
+
+.reset-link:hover {
+    color: blue;
+    
+}

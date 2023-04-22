@@ -48,15 +48,15 @@ export const authApi = createApi({
             }
         }),
 
-        resetPassword: builder.mutation<number | undefined | AuthErrorResponse, { email: String }>({
+        resetPassword: builder.mutation<{message:string} | AuthErrorResponse, { email: String }>({
             query: (credentials) => ({
                 url: '/resetPassword',
                 method: 'POST',
                 body: credentials
             }),
-            transformResponse: (response: number | undefined, meta, arg) => {
+            transformResponse: (response: { message: string } , meta, arg) => {
 
-                return meta?.response?.status
+                return {message: response.message}
 
             },
             transformErrorResponse: (response: ErrorRawResponse, meta, arg) => {
