@@ -1,6 +1,4 @@
 import { useNavigate } from "react-router"
-import { ProtectedRoute } from "../components/ProtectedRoute"
-import Home from "./Home"
 import { useEffect } from "react"
 
 
@@ -11,7 +9,7 @@ const Index: React.FC = () => {
     useEffect(() => {
         navigate('/home')
     })
-    
+
     return <></>
 }
 

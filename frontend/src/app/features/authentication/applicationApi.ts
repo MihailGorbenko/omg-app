@@ -1,5 +1,5 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-import { RootState, useAppDispatch } from "../../store/store";
+import { RootState } from "../../store/store";
 import { AuthErrorResponse, ErrorRawResponse, User } from "../../types/authSliceTypes";
 import type {
     BaseQueryFn,

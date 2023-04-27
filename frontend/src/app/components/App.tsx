@@ -1,4 +1,4 @@
-import { Outlet, useNavigate } from "react-router-dom";
+import { Outlet } from "react-router-dom";
 import { NavPanel } from "./NavPanel";
 import { ProgressBar } from "./ProgressBar";
 import { useTypedSelector } from "../store/store";
@@ -9,8 +9,6 @@ import { GlobalLoader } from "./GlobalLoader";
 
 export default function App() {
   const authState = useTypedSelector(selectAuth)
-  const navigate = useNavigate()
-
 
   return (
     < >

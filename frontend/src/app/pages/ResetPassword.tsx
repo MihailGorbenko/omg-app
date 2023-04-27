@@ -1,16 +1,13 @@
-import { useParams } from "react-router"
 import { Form, FloatingLabel, Button, Row, Container, Col } from "react-bootstrap"
 import styles from '../styles/Form/AuthForm.module.css'
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { useState } from "react"
-import { useLocation, useNavigate } from "react-router"
+import { useNavigate } from "react-router"
 
 
 
 
 const ResetPassword: React.FC = () => {
-    const params = useParams()
-    const location = useLocation()
     const navigate = useNavigate()
     const [passwordVisible, setPasswordVisible] = useState(false)
 

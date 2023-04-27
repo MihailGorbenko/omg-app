@@ -1,19 +1,13 @@
 import { Navbar, Container, Nav, Button, Image } from "react-bootstrap";
-
-import {
-  Link,
-  useLoaderData,
-  useLocation,
-  useNavigate,
-} from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import { useLogin } from "../hooks/useLogin";
-import styles from "../styles/NavPanel/NavPanel.module.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import classNames from "classnames";
-import "../styles/NavPanel/NavPanel_override.css";
 import { NavLink } from "react-router-dom";
 import { useTypedSelector } from "../store/store";
 import { selectAuth } from "../features/authentication/authSlice";
+import classNames from "classnames";
+import "../styles/NavPanel/NavPanel_override.css";
+import styles from "../styles/NavPanel/NavPanel.module.css";
 
 export const NavPanel: React.FC = () => {
   const { isLogin, logout } = useLogin();

@@ -1,13 +1,18 @@
 import { createApi, fetchBaseQuery, retry } from '@reduxjs/toolkit/query/react'
-import { response } from 'express'
-import { url } from 'inspector'
-import { ErrorRawResponse, AuthCredentials, AuthErrorResponse, LoginResponse, RegisterResponse, CheckEmailResponse, SetPasswordResponse } from '../../types/authSliceTypes'
+import {
+    ErrorRawResponse,
+    AuthCredentials,
+    AuthErrorResponse,
+    LoginResponse,
+    CheckEmailResponse,
+    SetPasswordResponse
+} from '../../types/authSliceTypes'
 
 const staggeredRetry = retry(fetchBaseQuery({
     baseUrl: process.env.REACT_APP_AUTH_URL,
     credentials: 'include'
 }),
-    { maxRetries: 2 }
+    { maxRetries: 0 }
 )
 
 export const authApi = createApi({
@@ -48,15 +53,15 @@ export const authApi = createApi({
             }
         }),
 
-        resetPassword: builder.mutation<{message:string} | AuthErrorResponse, { email: String }>({
+        resetPassword: builder.mutation<{ message: string } | AuthErrorResponse, { email: String }>({
             query: (credentials) => ({
                 url: '/resetPassword',
                 method: 'POST',
                 body: credentials
             }),
-            transformResponse: (response: { message: string } , meta, arg) => {
+            transformResponse: (response: { message: string }, meta, arg) => {
 
-                return {message: response.message}
+                return { message: response.message }
 
             },
             transformErrorResponse: (response: ErrorRawResponse, meta, arg) => {

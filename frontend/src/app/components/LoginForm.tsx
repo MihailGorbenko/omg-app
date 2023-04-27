@@ -2,17 +2,18 @@ import { useEffect, useState } from "react";
 import { useLogin } from "../hooks/useLogin";
 import { AuthErrorResponse } from "../types/authSliceTypes";
 import { useLocation, useNavigate } from "react-router";
-import styles from '../styles/Form/AuthForm.module.css'
 import { Button, Row } from "react-bootstrap";
 import { Form, FloatingLabel } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Formik } from 'formik'
-import * as yup from 'yup'
+import { Slide, toast, ToastContainer } from "react-toastify";
 import { useResetPasswordMutation } from "../features/authentication/authApi";
 import useLoader from "../hooks/useLoader";
 import useProgress from "../hooks/useProgress";
-import { Flip, Slide, toast, ToastContainer, Zoom } from "react-toastify";
+import * as yup from 'yup'
+import styles from '../styles/Form/AuthForm.module.css'
 import "react-toastify/dist/ReactToastify.css";
+
 
 
 const schema = yup.object().shape({
@@ -30,13 +31,6 @@ const schema = yup.object().shape({
 
 
 
-const initialValues = {
-    email: '',
-    password: ''
-}
-
-
-
 const LoginForm: React.FC = () => {
     const { login, isLogin } = useLogin();
     const location = useLocation()
@@ -44,9 +38,15 @@ const LoginForm: React.FC = () => {
     const [emailError, setEmailError] = useState(false)
     const [passwordError, setPasswordError] = useState(false)
     const [passwordVisible, setPasswordVisible] = useState(false)
+    const [toRegister, setToRegister] = useState(false)
     const [resetPassword] = useResetPasswordMutation()
     const loader = useLoader()
     const progress = useProgress()
+    const initialValues = {
+        email: '',
+        password: ''
+    }
+    initialValues.email = location.state?.email ? location.state.email : ''
 
     useEffect(() => {
         if (isLogin) navigate('/')
@@ -78,6 +78,10 @@ const LoginForm: React.FC = () => {
     }
 
     async function handleFormSubmit(values: typeof initialValues) {
+        if (toRegister) {
+            navigate('/register', { state: { from: location, email: values.email } })
+            return
+        }
         clearErrors()
         await login({
             email: values.email,
@@ -87,6 +91,7 @@ const LoginForm: React.FC = () => {
             .catch(err => {
                 if ((err as AuthErrorResponse).predicate === 'NOT_EXIST') {
                     setEmailError(true)
+                    setToRegister(true)
                 }
                 else if ((err as AuthErrorResponse).predicate === 'INCORRECT') {
                     setEmailError(true)
@@ -100,9 +105,7 @@ const LoginForm: React.FC = () => {
     }
 
     return (
-
         <div className={styles.container}>
-
             <h1 className="mb-3">Login</h1>
             <Formik
                 initialValues={initialValues}
@@ -131,6 +134,7 @@ const LoginForm: React.FC = () => {
                                         name="email"
                                         value={values.email}
                                         onChange={(e) => {
+                                            setToRegister(false)
                                             clearErrors()
                                             handleChange(e)
                                         }}
@@ -195,11 +199,11 @@ const LoginForm: React.FC = () => {
                                     Back
                                 </Button>
                                 <Button variant="primary" type="submit" className={styles.button}>
-                                    Login
+                                    {!toRegister ? 'Login' : 'Register'}
                                 </Button>
                             </Row>
                             <ToastContainer
-                            className={styles['toast-container']}
+                                className={styles['toast-container']}
                                 position="top-center"
                                 autoClose={5000}
                                 hideProgressBar={false}
@@ -212,11 +216,9 @@ const LoginForm: React.FC = () => {
                                 pauseOnHover
                                 theme="light"
                             />
-
                         </Form>
                     )}
             </Formik>
-
         </div>
     )
 }

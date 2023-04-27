@@ -1,9 +1,9 @@
 import { useLocation, useOutlet } from "react-router";
-import styles from '../styles/Auth/AuthLayout.module.css'
 import { createRef, useEffect, useRef, useState } from "react";
-import classNames from "classnames";
 import { Container, Row, Col } from "react-bootstrap";
 import { CSSTransition, SwitchTransition } from "react-transition-group";
+import classNames from "classnames";
+import styles from '../styles/Auth/AuthLayout.module.css'
 
 const blocksReturnTime = 500
 const formAppearTime = 500

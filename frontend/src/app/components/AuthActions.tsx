@@ -1,6 +1,6 @@
 import { Container, Row, Button } from "react-bootstrap"
-import styles from '../styles/Auth/AuthLayout.module.css'
 import { useLocation, useNavigate } from "react-router"
+import styles from '../styles/Auth/AuthLayout.module.css'
 
 
 
@@ -15,14 +15,14 @@ const AuthActions: React.FC = () => {
                     className={styles['login-button']}
                     variant="success"
                     onClick={() => {
-                        navigate('/login', { state: { from:location } })
+                        navigate('/login', { state: { from: location } })
                     }
                     }>Login</Button>
                 <Button
                     className={styles['register-button']}
                     variant="success"
                     onClick={() => {
-                        navigate('/register', { state: { from:location } })
+                        navigate('/register', { state: { from: location } })
                     }}>Register</Button>
             </Row>
         </Container>
