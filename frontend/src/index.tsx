@@ -4,6 +4,7 @@ import { Provider } from 'react-redux';
 import { store } from './app/store/store';
 import App from './app/components/App';
 import 'bootstrap/dist/css/bootstrap.min.css';
+
 import { library } from '@fortawesome/fontawesome-svg-core';
 import {
   faB,
@@ -43,9 +44,11 @@ const router = createBrowserRouter(
       <Route
         path='home'
         element={
-            <Suspense fallback={<GlobalLoader />}>
+          <Suspense fallback={<GlobalLoader />}>
+            <ProtectedRoute>
               <Home />
-            </Suspense>}>
+            </ProtectedRoute>
+          </Suspense>}>
         <Route path='feed' element={
           <Suspense>
             <Feed />

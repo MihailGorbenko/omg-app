@@ -13,16 +13,15 @@ const Home: React.FC = () => {
     const user = useTypedSelector(selectAuth).user
 
     return (
-        <ProtectedRoute>
             <Container style={{ padding: '0 2em' }}>
                 <Row className="justify-content-center ">
                     <Card className={styles.card}>
                         <Image
                             roundedCircle
-                            src={user?.avatar_url?.toString()}
+                            src={user?.avatar_url.toString()}
                             className={styles['profile-image']} />
                         <Card.Body>
-                            <h1>{user?.name?.toUpperCase() + ' ' + user?.lastName?.toUpperCase()}</h1>
+                            <h1>{user?.name.toUpperCase() + ' ' + user?.lastName.toUpperCase()}</h1>
                             <hr />
                             <h3>{user?.email}</h3>
                         </Card.Body>
@@ -30,7 +29,6 @@ const Home: React.FC = () => {
                 </Row>
                 <Outlet />
             </Container>
-        </ProtectedRoute>
     )
 }
 

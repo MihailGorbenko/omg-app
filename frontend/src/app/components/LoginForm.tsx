@@ -1,11 +1,9 @@
 import { useEffect, useState } from "react";
 import { useLogin } from "../hooks/useLogin";
-import { useRegister } from "../hooks/useRegister";
-import { useAppDispatch } from "../store/store";
 import { AuthErrorResponse } from "../types/authSliceTypes";
 import { useLocation, useNavigate } from "react-router";
 import styles from '../styles/Form/AuthForm.module.css'
-import { Button, Row, Toast, ToastContainer } from "react-bootstrap";
+import { Button, Row } from "react-bootstrap";
 import { Form, FloatingLabel } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Formik } from 'formik'
@@ -13,6 +11,8 @@ import * as yup from 'yup'
 import { useResetPasswordMutation } from "../features/authentication/authApi";
 import useLoader from "../hooks/useLoader";
 import useProgress from "../hooks/useProgress";
+import { Flip, Slide, toast, ToastContainer, Zoom } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 
 const schema = yup.object().shape({
@@ -27,6 +27,8 @@ const schema = yup.object().shape({
         .min(8, 'Must be min 8 characters! ')
         .required('Password required!')
 })
+
+
 
 const initialValues = {
     email: '',
@@ -45,9 +47,6 @@ const LoginForm: React.FC = () => {
     const [resetPassword] = useResetPasswordMutation()
     const loader = useLoader()
     const progress = useProgress()
-    const [showToast, setShowToast] = useState(false)
-    const [toastText, setToastText] = useState('')
-    ///TODO write useToast hook
 
     useEffect(() => {
         if (isLogin) navigate('/')
@@ -65,15 +64,13 @@ const LoginForm: React.FC = () => {
         await resetPassword({ email })
             .unwrap()
             .then(resp => {
-                setToastText((resp as {message:string}).message)
-                setShowToast(true)
+                toast.success((resp as { message: string }).message);
                 progress.done()
                 loader.off()
             })
             .catch(err => {
-                if((err as AuthErrorResponse).predicate === 'INCORRECT'){
-                    setToastText('Incorrect email')
-                    setShowToast(true)
+                if ((err as AuthErrorResponse).predicate === 'INCORRECT') {
+                    toast.error('Incorrect email!');
                 }
                 progress.off()
                 loader.off()
@@ -201,10 +198,25 @@ const LoginForm: React.FC = () => {
                                     Login
                                 </Button>
                             </Row>
-                          {showToast && <h1>{toastText}</h1>}
+                            <ToastContainer
+                            className={styles['toast-container']}
+                                position="top-center"
+                                autoClose={5000}
+                                hideProgressBar={false}
+                                newestOnTop={false}
+                                closeOnClick
+                                rtl={false}
+                                transition={Slide}
+                                pauseOnFocusLoss
+                                draggable
+                                pauseOnHover
+                                theme="light"
+                            />
+
                         </Form>
                     )}
             </Formik>
+
         </div>
     )
 }
