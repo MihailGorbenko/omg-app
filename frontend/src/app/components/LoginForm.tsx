@@ -19,7 +19,8 @@ import "react-toastify/dist/ReactToastify.css";
 const schema = yup.object().shape({
     email: yup
         .string()
-        .email('Invalid email address!')
+        .trim()
+        .matches(/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|.(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/, 'Must be valid email address')
         .required('Email required!'),
     password: yup
         .string()

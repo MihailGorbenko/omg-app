@@ -73,6 +73,7 @@ export const applicationApi = createApi({
                 return {
                     predicate: response.data?.predicate,
                     status: response.status,
+                    message: response.data.message
                 }
             },
         })

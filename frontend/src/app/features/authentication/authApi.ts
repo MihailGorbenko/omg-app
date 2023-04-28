@@ -97,7 +97,7 @@ export const authApi = createApi({
 
         }),
 
-        setPassword: builder.mutation<SetPasswordResponse | AuthErrorResponse, { password: String, token: String }>({
+        setPassword: builder.mutation<SetPasswordResponse | AuthErrorResponse, { password: string, token: string | undefined }>({
             query: (payload) => ({
                 url: '/setPassword',
                 method: 'POST',
@@ -115,6 +115,7 @@ export const authApi = createApi({
                 return {
                     predicate: response.data?.predicate,
                     status: response.status,
+                    message: response.data.message
                 }
             }
         })

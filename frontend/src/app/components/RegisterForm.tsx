@@ -1,6 +1,6 @@
 import { Form, FloatingLabel, Button, Row } from "react-bootstrap"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import { useEffect, useState } from "react"
+import { useState } from "react"
 import { useLocation, useNavigate } from "react-router"
 import { Formik } from "formik"
 import * as yup from 'yup'
@@ -21,7 +21,7 @@ const schema = yup.object().shape({
     email: yup
         .string()
         .trim()
-        .email('Must be an valid email!')
+        .matches(/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|.(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/, 'Must be valid email address')
         .required('Email is required!'),
     name: yup
         .string()
@@ -106,7 +106,7 @@ const RegisterForm: React.FC = () => {
                         toast.success('Registration successfull,now you can login!')
                         setToLogin(true)
                     })
-                    .catch(err => toast.error(`Someting went wrong: ${(err as AuthErrorResponse).predicate}`))
+                    .catch(err => toast.error(`Someting went wrong: ${(err as AuthErrorResponse).message}`))
             })
             .finally(() => {
                 loader.off()
@@ -141,7 +141,11 @@ const RegisterForm: React.FC = () => {
                                     className={styles.input}
                                     name="email"
                                     value={values.email}
-                                    onBlur={handleBlur}
+                                    onBlur={e => {
+                                        setEmailError(false)
+                                        setEmailInUse(false)
+                                        handleBlur(e)
+                                    }}
                                     onChange={handleChange}
                                     isValid={touched.email && !errors.email && !emailError && !emailInUse}
                                     isInvalid={(touched.email && !!errors.email) || emailError || emailInUse} />

@@ -36,6 +36,7 @@ export type ErrorRawResponse = {
 export type AuthErrorResponse = {
     status: number,
     predicate?: String,
+    message?:String
 
 }
 export type LoginResponse = {
