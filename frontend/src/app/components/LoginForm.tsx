@@ -51,7 +51,7 @@ const LoginForm: React.FC = () => {
 
     useEffect(() => {
         if (isLogin) navigate('/')
-    }, [isLogin])
+    }, [isLogin, navigate])
 
 
     function clearErrors() {

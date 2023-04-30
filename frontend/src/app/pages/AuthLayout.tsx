@@ -8,6 +8,12 @@ import styles from '../styles/Auth/AuthLayout.module.css'
 const blocksReturnTime = 500
 const formAppearTime = 500
 
+const routesRefs = new Map()
+  routesRefs
+    .set('/login', createRef())
+    .set('/register', createRef())
+    .set('/auth', createRef())
+
 export const AuthLayout: React.FC = () => {
 
   const [blockSlide, setBlockSlide] = useState(false)
@@ -17,17 +23,12 @@ export const AuthLayout: React.FC = () => {
   const outlet = useOutlet()
   const location = useLocation()
 
-  const routesRefs = new Map()
-  routesRefs
-    .set('/login', createRef())
-    .set('/register', createRef())
-    .set('/auth', createRef())
 
   useEffect(() => {
     if (routesRefs.get(location.state?.from.pathname))
       setBlockSlide(true)
 
-  }, [location.pathname])
+  }, [location.state?.from.pathname])
 
 
   return (
