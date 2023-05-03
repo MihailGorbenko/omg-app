@@ -33,5 +33,4 @@ certificatesResolvers:
         entrypoint: web
 
 api:
-  dashboard: true
   debug: true

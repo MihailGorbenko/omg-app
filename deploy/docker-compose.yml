@@ -23,14 +23,7 @@ services:
     labels:
       - "traefik.enable=true"
       - "traefik.http.routers.dashboard.entrypoints=websecure"
-      - "traefik.http.routers.dashboard.tls=true"
-      - "traefik.http.routers.dashboard.tls.certresolver=letsEncrypt"
-      - "traefik.http.routers.dashboard.rule=Host(`omgapp.pp.ua`) && (PathPrefix(`/api`) || PathPrefix(`/dashboard`))"
-      - "traefik.http.routers.dashboard.service=api@internal"
-      - "traefik.http.middlewares.auth.basicauth.users=admin:$$apr1$$7.JJ7f/D$$73liZlkkwPPJsIcTc6elb."
-      - "traefik.http.routers.dashboard.middlewares=auth"
-
-    
+   
     ports:
       - "443:443"
       - "80:80"
