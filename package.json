@@ -15,7 +15,8 @@
     "build": "run-s compile docker:build",
     "build:test": "run-s test build",
     "docker:push": "docker push mihago/omg-app:latest",
-    "docker:publish": "run-s build:test docker:push",
+    "docker:publish-test": "run-s build:test docker:push",
+    "docker:publish": "run-s build docker:push",
     "push:aws": "rsync -rv -e 'ssh -i ../../aws_keys/omgapp.pem' ./deploy ubuntu@3.75.23.1:/home/ubuntu/omgapp",
     "conn:aws": "ssh -i ../../aws_keys/omgapp.pem ubuntu@3.75.23.1"
   },

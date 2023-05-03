@@ -17,7 +17,7 @@ function createApp(db) {
     }
     app.use((0, express_csp_header_1.expressCspHeader)({
         directives: {
-            "default-src": [express_csp_header_1.SELF, 'https://auth.omgapp.pp.ua', 'https://fonts.googleapis.com'],
+            "default-src": [express_csp_header_1.SELF, 'https://auth.omgapp.pp.ua', 'https://fonts.googleapis.com', 'https://fonts.gstatic.com'],
             "script-src": [express_csp_header_1.SELF, 'https://auth.omgapp.pp.ua']
         }
     }));
