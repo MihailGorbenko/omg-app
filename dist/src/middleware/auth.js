@@ -12,7 +12,6 @@ function jwtAuth() {
         if (req.method === 'OPTIONS')
             return next();
         const token = (_a = req.headers.authorization) === null || _a === void 0 ? void 0 : _a.split(' ')[1]; //Bearer TOKEN
-        console.log(token);
         if (!token) {
             return res.status(responce_status_1.ResponceStatus.BadRequest).json({
                 message: 'Access token required'
