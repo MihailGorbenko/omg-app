@@ -25,12 +25,12 @@ export default function createApp(db: DB): Express {
 
     app.use(express.json())
     app.use(cookieParser())
-    app.use(express.static(path.resolve(__dirname, '../../frontend/build')))
+    app.use(express.static(path.resolve(__dirname, '../public/build')))
     app.use('/api/storage', express.static(path.resolve(__dirname, 'userData')))
     app.use(attachDatabase(db))
     app.use('/', appRouter)
-    app.get('/:universalURL', (req, res) => {
-        res.send('404 URL NOT FOUND')
+    app.get('*', (req, res) => {
+        res.sendFile(path.join(__dirname,'../public/build/index.html'))
     })
     return app
 }

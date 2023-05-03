@@ -23,12 +23,12 @@ function createApp(db) {
     }));
     app.use(express_1.default.json());
     app.use((0, cookie_parser_1.default)());
-    app.use(express_1.default.static(path_1.default.resolve(__dirname, '../../frontend/build')));
+    app.use(express_1.default.static(path_1.default.resolve(__dirname, '../public/build')));
     app.use('/api/storage', express_1.default.static(path_1.default.resolve(__dirname, 'userData')));
     app.use((0, attachDatabase_1.default)(db));
     app.use('/', appRouter_1.default);
-    app.get('/:universalURL', (req, res) => {
-        res.send('404 URL NOT FOUND');
+    app.get('*', (req, res) => {
+        res.sendFile(path_1.default.join(__dirname, '../public/build/index.html'));
     });
     return app;
 }

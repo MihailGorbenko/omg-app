@@ -65,7 +65,7 @@ const LoginForm: React.FC = () => {
         await resetPassword({ email })
             .unwrap()
             .then(resp => {
-                toast.success((resp as { message: string }).message);
+                toast.success('Foolow link in the mail to reset password!');
                 progress.done()
                 loader.off()
             })

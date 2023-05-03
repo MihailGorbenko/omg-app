@@ -1,0 +1,41 @@
+version: '3'
+
+services:
+
+  omg-app:
+    image: mihago/omg-app:latest
+    container_name: omg-app
+    restart: unless-stopped
+    ports:
+      - "5000:5000"
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.omg-app.rule=Host(`omgapp.pp.ua`)"
+      - "traefik.http.routers.omg-app.entrypoints=websecure"
+      - "traefik.http.routers.omg-app.tls=true"
+      - "traefik.http.routers.omg-app.tls.certresolver=letsEncrypt"
+    
+  reverse-proxy:
+    image: traefik:v2.9
+    container_name: traefik
+    restart: unless-stopped
+
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.dashboard.entrypoints=websecure"
+      - "traefik.http.routers.dashboard.tls=true"
+      - "traefik.http.routers.dashboard.tls.certresolver=letsEncrypt"
+      - "traefik.http.routers.dashboard.rule=Host(`omgapp.pp.ua`) && (PathPrefix(`/api`) || PathPrefix(`/dashboard`))"
+      - "traefik.http.routers.dashboard.service=api@internal"
+      - "traefik.http.middlewares.auth.basicauth.users=admin:$$apr1$$7.JJ7f/D$$73liZlkkwPPJsIcTc6elb."
+      - "traefik.http.routers.dashboard.middlewares=auth"
+
+    
+    ports:
+      - "443:443"
+      - "80:80"
+
+    volumes:
+      - "./letsencrypt:/letsencrypt"
+      - "/var/run/docker.sock:/var/run/docker.sock:ro"
+      - "./traefik.yml:/traefik.yml:ro"

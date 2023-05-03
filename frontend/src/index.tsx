@@ -23,6 +23,9 @@ import { AuthLayout } from './app/pages/AuthLayout';
 import { ProtectedRoute } from './app/components/ProtectedRoute';
 import { GlobalLoader } from './app/components/GlobalLoader';
 import Index from './app/pages/Index';
+import LoginForm from './app/components/LoginForm';
+import AuthActions from './app/components/AuthActions';
+import RegisterForm from './app/components/RegisterForm';
 
 library.add(faB, faL, faS, faR, faUserAstronaut, faPersonWalkingLuggage, faRocket, faEye, faEyeSlash)
 
@@ -30,10 +33,7 @@ const Home = lazy(() => import("./app/pages/Home"))
 const About = lazy(() => import('./app/pages/About'))
 const NotFound = lazy(() => import('./app/pages/NotFound'))
 const Feed = lazy(() => import('./app/components/Feed'))
-const LoginForm = lazy(() => import('./app/components/LoginForm'))
-const RegisterForm = lazy(() => import('./app/components/RegisterForm'))
 const ResetPassword = lazy(() => import('./app/pages/ResetPassword'))
-const AuthActions = lazy(() => import('./app/components/AuthActions'))
 
 const container = document.getElementById('root')!;
 const root = createRoot(container);
@@ -56,21 +56,9 @@ const router = createBrowserRouter(
       </Route>
       <Route
         element={<AuthLayout />}>
-        <Route path='auth' element={
-          <Suspense>
-            <AuthActions />
-          </Suspense>
-        }>
-        </Route>
-        <Route path='login' element={
-          <Suspense>
-            <LoginForm />
-          </Suspense>} />
-        <Route path='register' element={
-          <Suspense>
-            <RegisterForm />
-          </Suspense>
-        } />
+        <Route path='auth' element={<AuthActions />} />
+        <Route path='login' element={<LoginForm />} />
+        <Route path='register' element={<RegisterForm />} />
       </Route>
       <Route path='resetPassword/:token' element={
         <Suspense>

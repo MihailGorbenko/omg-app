@@ -98,8 +98,8 @@ const RegisterForm: React.FC = () => {
                     email: values.email,
                     name: values.name,
                     lastName: values.lastname,
-                    avatar_url: 'https://omgapp.pp.ua/api/storage/default.png',
-                    avatar_min_url: 'https://omgapp.pp.ua/api/storage/default_min.png'
+                    avatar_url: `${process.env.REACT_APP_BASE_URL}/api/storage/default.png`,
+                    avatar_min_url: `${process.env.REACT_APP_BASE_URL}/api/storage/default_min.png`
                 },
                     values.password)
                     .then(res => {

@@ -8,3 +8,6 @@ Dockerfile
 README.md
 .git
 frontend
+deploy
+nodemon.json
+tsconfig.json

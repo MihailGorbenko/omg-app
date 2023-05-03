@@ -5,6 +5,7 @@
 
   "exclude": [
     "tests",
+    "frontend/*",
     "frontend"
   ],
 
