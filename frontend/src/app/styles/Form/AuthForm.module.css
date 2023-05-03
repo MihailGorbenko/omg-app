@@ -18,9 +18,11 @@
 
 .password-icon {
     position: absolute;
-    top: 1.05em;
+    top: 0.9em;
     right: 2em;
     color: rgba(10, 129, 172, 0.975);
+    width: 1em;
+    height: 1em;
 }
 
 .password-icon-invalid {

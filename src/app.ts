@@ -18,8 +18,22 @@ export default function createApp(db: DB): Express {
 
     app.use(expressCspHeader({
         directives: {
-            "default-src": [SELF, 'https://auth.omgapp.pp.ua','https://fonts.googleapis.com','https://fonts.gstatic.com'],
-            "script-src": [SELF, 'https://auth.omgapp.pp.ua']
+            "default-src": [SELF, 'https://auth.omgapp.pp.ua'],
+            "script-src": [SELF, 'https://auth.omgapp.pp.ua'],
+            "img-src": [
+                "'self'",
+                "data:"
+            ],
+            "font-src": [
+                "'self'",
+                "https:",
+                "data:"
+            ],
+            "style-src": [
+                "'self'",
+                'https://fonts.gstatic.com',
+                "https://fonts.googleapis.com"
+            ],
         }
     }))
 
